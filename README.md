@@ -14,19 +14,49 @@
 - React 18
 - Three.js (r128)
 - Tailwind CSS
-- Lucide Icons
+- Lucide React Icons
 
-## 실행 방법
+## 설치 및 실행
 
-`index.html` 파일을 브라우저로 열면 바로 실행됩니다.
-
-또는 로컬 서버 실행:
+### 1. 저장소 클론
 ```bash
-# Python 3 사용
-python -m http.server 8000
+git clone https://github.com/deehyeon/munglog-frontend.git
+cd munglog-frontend
+```
 
-# Node.js 사용
-npx serve
+### 2. 의존성 설치
+```bash
+npm install
+```
+
+### 3. 개발 서버 실행
+```bash
+npm start
+```
+
+브라우저에서 [http://localhost:3000](http://localhost:3000)으로 자동으로 열립니다.
+
+## 빌드
+
+프로덕션 빌드를 생성하려면:
+```bash
+npm run build
+```
+
+빌드된 파일은 `build` 폴더에 생성됩니다.
+
+## 프로젝트 구조
+
+```
+munglog-frontend/
+├── public/
+│   └── index.html
+├── src/
+│   ├── App.js          # 메인 컴포넌트
+│   ├── index.js        # 진입점
+│   └── index.css       # 전역 스타일
+├── package.json
+└── README.md
 ```
 
 ## 개발자
