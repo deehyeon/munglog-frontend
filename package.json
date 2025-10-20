@@ -1,14 +1,14 @@
 {
   "name": "munglog-frontend",
   "version": "1.0.0",
-  "description": "멍로그 - 유기견 보호소 서비스 웹 애플리케이션",
+  "description": "유기견 보호소 봉사 신청 서비스",
   "private": true,
   "dependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
-    "three": "^0.128.0",
-    "lucide-react": "^0.263.1"
+    "lucide-react": "^0.263.1",
+    "three": "^0.128.0"
   },
   "scripts": {
     "start": "react-scripts start",
