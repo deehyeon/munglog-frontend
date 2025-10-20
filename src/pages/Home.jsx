@@ -393,23 +393,23 @@ export default function Home() {
 
   return (
     <div>
-      <div className=\"relative mb-8\">
-        <div ref={mountRef} className=\"w-full rounded-2xl overflow-hidden shadow-lg\" />
+      <div className="relative mb-8">
+        <div ref={mountRef} className="w-full rounded-2xl overflow-hidden shadow-lg" />
         
-        <div className=\"absolute inset-0 flex items-center justify-center pointer-events-none\">
-          <div className=\"max-w-3xl w-full px-4 sm:px-6 pointer-events-auto\">
-            <div className=\"bg-white/20 backdrop-blur-md rounded-3xl p-8 shadow-2xl border border-white/30\">
-              <h2 className=\"text-3xl md:text-4xl font-bold text-gray-900 text-center mb-2 drop-shadow-lg\">
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+          <div className="max-w-3xl w-full px-4 sm:px-6 pointer-events-auto">
+            <div className="bg-white/20 backdrop-blur-md rounded-3xl p-8 shadow-2xl border border-white/30">
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 text-center mb-2 drop-shadow-lg">
                 유기견 보호소 봉사 신청 서비스
               </h2>
-              <p className=\"text-center text-gray-800 font-semibold mb-6 drop-shadow\">근처 보호소를 찾아보세요! 🐾</p>
-              <div className=\"relative\">
-                <input type=\"text\" placeholder=\"지역명 또는 보호소명을 입력하세요\" className=\"w-full px-6 py-4 pr-14 rounded-full border-2 focus:outline-none focus:ring-2 shadow-sm bg-white\" 
+              <p className="text-center text-gray-800 font-semibold mb-6 drop-shadow">근처 보호소를 찾아보세요! 🐾</p>
+              <div className="relative">
+                <input type="text" placeholder="지역명 또는 보호소명을 입력하세요" className="w-full px-6 py-4 pr-14 rounded-full border-2 focus:outline-none focus:ring-2 shadow-sm bg-white" 
                   style={{ borderColor: colors.light }}
                   onFocus={(e) => e.target.style.boxShadow = `0 0 0 2px ${colors.primary}`}
                   onBlur={(e) => e.target.style.boxShadow = 'none'} />
-                <button className=\"absolute right-2 top-1/2 -translate-y-1/2 p-3 text-gray-900 rounded-full\" style={{ background: `linear-gradient(to right, ${colors.primary}, ${colors.secondary})` }}>
-                  <Search className=\"w-5 h-5\" />
+                <button className="absolute right-2 top-1/2 -translate-y-1/2 p-3 text-gray-900 rounded-full" style={{ background: `linear-gradient(to right, ${colors.primary}, ${colors.secondary})` }}>
+                  <Search className="w-5 h-5" />
                 </button>
               </div>
             </div>
@@ -417,64 +417,64 @@ export default function Home() {
         </div>
       </div>
 
-      <div className=\"mb-12\">
-        <h2 className=\"text-3xl font-bold text-center text-gray-900 mb-10\">멍로그만의 특징</h2>
-        <div className=\"grid grid-cols-4 gap-6\">
-          <div className=\"bg-white rounded-3xl p-8 shadow-sm hover:shadow-md transition text-center\">
-            <div className=\"w-32 h-32 mx-auto mb-6 rounded-full flex items-center justify-center text-6xl shadow-lg\" style={{ background: `linear-gradient(to br, ${colors.primary}, ${colors.secondary})` }}>
+      <div className="mb-12">
+        <h2 className="text-3xl font-bold text-center text-gray-900 mb-10">멍로그만의 특징</h2>
+        <div className="grid grid-cols-4 gap-6">
+          <div className="bg-white rounded-3xl p-8 shadow-sm hover:shadow-md transition text-center">
+            <div className="w-32 h-32 mx-auto mb-6 rounded-full flex items-center justify-center text-6xl shadow-lg" style={{ background: `linear-gradient(to br, ${colors.primary}, ${colors.secondary})` }}>
               🐶
             </div>
-            <h3 className=\"text-xl font-bold text-gray-900 mb-2\">안전한 보호소 인증</h3>
-            <p className=\"text-gray-600\">검증된 보호소만</p>
+            <h3 className="text-xl font-bold text-gray-900 mb-2">안전한 보호소 인증</h3>
+            <p className="text-gray-600">검증된 보호소만</p>
           </div>
 
-          <div className=\"bg-white rounded-3xl p-8 shadow-sm hover:shadow-md transition text-center\">
-            <div className=\"w-32 h-32 mx-auto mb-6 rounded-full flex items-center justify-center text-6xl shadow-lg\" style={{ background: `linear-gradient(to br, ${colors.secondary}, ${colors.primary})` }}>
+          <div className="bg-white rounded-3xl p-8 shadow-sm hover:shadow-md transition text-center">
+            <div className="w-32 h-32 mx-auto mb-6 rounded-full flex items-center justify-center text-6xl shadow-lg" style={{ background: `linear-gradient(to br, ${colors.secondary}, ${colors.primary})` }}>
               🐕
             </div>
-            <h3 className=\"text-xl font-bold text-gray-900 mb-2\">활발한 커뮤니티</h3>
-            <p className=\"text-gray-600\">따뜻한 경험</p>
+            <h3 className="text-xl font-bold text-gray-900 mb-2">활발한 커뮤니티</h3>
+            <p className="text-gray-600">따뜻한 경험</p>
           </div>
 
-          <div className=\"bg-white rounded-3xl p-8 shadow-sm hover:shadow-md transition text-center\">
-            <div className=\"w-32 h-32 mx-auto mb-6 rounded-full flex items-center justify-center text-6xl shadow-lg\" style={{ background: `linear-gradient(to br, ${colors.primary}, ${colors.light})` }}>
+          <div className="bg-white rounded-3xl p-8 shadow-sm hover:shadow-md transition text-center">
+            <div className="w-32 h-32 mx-auto mb-6 rounded-full flex items-center justify-center text-6xl shadow-lg" style={{ background: `linear-gradient(to br, ${colors.primary}, ${colors.light})` }}>
               🦮
             </div>
-            <h3 className=\"text-xl font-bold text-gray-900 mb-2\">투명한 분양</h3>
-            <p className=\"text-gray-600\">가족의 만남</p>
+            <h3 className="text-xl font-bold text-gray-900 mb-2">투명한 분양</h3>
+            <p className="text-gray-600">가족의 만남</p>
           </div>
 
-          <div className=\"bg-white rounded-3xl p-8 shadow-sm hover:shadow-md transition text-center\">
-            <div className=\"w-32 h-32 mx-auto mb-6 rounded-full flex items-center justify-center text-6xl shadow-lg\" style={{ background: `linear-gradient(to br, ${colors.secondary}, ${colors.light})` }}>
+          <div className="bg-white rounded-3xl p-8 shadow-sm hover:shadow-md transition text-center">
+            <div className="w-32 h-32 mx-auto mb-6 rounded-full flex items-center justify-center text-6xl shadow-lg" style={{ background: `linear-gradient(to br, ${colors.secondary}, ${colors.light})` }}>
               🐕‍🦺
             </div>
-            <h3 className=\"text-xl font-bold text-gray-900 mb-2\">후원 시스템</h3>
-            <p className=\"text-gray-600\">보호소 지원</p>
+            <h3 className="text-xl font-bold text-gray-900 mb-2">후원 시스템</h3>
+            <p className="text-gray-600">보호소 지원</p>
           </div>
         </div>
       </div>
 
-      <div className=\"rounded-3xl p-10 shadow-sm\" style={{ background: `linear-gradient(to right, ${colors.light}, ${colors.light})` }}>
-        <h2 className=\"text-3xl font-bold text-gray-900 mb-6 text-center\">멍로그는 이런 서비스입니다</h2>
-        <div className=\"max-w-4xl mx-auto space-y-6 text-gray-700 leading-relaxed\">
-          <p className=\"text-lg\">
-            <span className=\"font-bold\" style={{ color: colors.primary }}>멍로그</span>는 유기견 보호소와 봉사자, 분양 희망자를 연결하는 종합 플랫폼입니다.
+      <div className="rounded-3xl p-10 shadow-sm" style={{ background: `linear-gradient(to right, ${colors.light}, ${colors.light})` }}>
+        <h2 className="text-3xl font-bold text-gray-900 mb-6 text-center">멍로그는 이런 서비스입니다</h2>
+        <div className="max-w-4xl mx-auto space-y-6 text-gray-700 leading-relaxed">
+          <p className="text-lg">
+            <span className="font-bold" style={{ color: colors.primary }}>멍로그</span>는 유기견 보호소와 봉사자, 분양 희망자를 연결하는 종합 플랫폼입니다.
           </p>
-          <div className=\"grid md:grid-cols-2 gap-6\">
-            <div className=\"bg-white rounded-2xl p-6 shadow-sm\">
-              <h3 className=\"font-bold text-xl text-gray-900 mb-3\">🏠 보호소 찾기</h3>
+          <div className="grid md:grid-cols-2 gap-6">
+            <div className="bg-white rounded-2xl p-6 shadow-sm">
+              <h3 className="font-bold text-xl text-gray-900 mb-3">🏠 보호소 찾기</h3>
               <p>내 주변의 검증된 유기견 보호소를 쉽게 찾고, 봉사 신청을 할 수 있습니다. 보호소의 운영시간, 위치, 연락처 정보를 한눈에 확인하세요.</p>
             </div>
-            <div className=\"bg-white rounded-2xl p-6 shadow-sm\">
-              <h3 className=\"font-bold text-xl text-gray-900 mb-3\">🔍 분실/보호 게시판</h3>
+            <div className="bg-white rounded-2xl p-6 shadow-sm">
+              <h3 className="font-bold text-xl text-gray-900 mb-3">🔍 분실/보호 게시판</h3>
               <p>실종된 반려견을 찾거나, 보호 중인 유기견 정보를 공유할 수 있는 커뮤니티입니다. 빠른 정보 공유로 더 많은 아이들이 가족을 찾을 수 있습니다.</p>
             </div>
-            <div className=\"bg-white rounded-2xl p-6 shadow-sm\">
-              <h3 className=\"font-bold text-xl text-gray-900 mb-3\">💝 분양하기</h3>
+            <div className="bg-white rounded-2xl p-6 shadow-sm">
+              <h3 className="font-bold text-xl text-gray-900 mb-3">💝 분양하기</h3>
               <p>새로운 가족을 기다리는 아이들의 정보를 확인하고 분양 신청을 할 수 있습니다. 투명한 절차로 안전하고 책임감 있는 분양을 지원합니다.</p>
             </div>
-            <div className=\"bg-white rounded-2xl p-6 shadow-sm\">
-              <h3 className=\"font-bold text-xl text-gray-900 mb-3\">🤝 후원 시스템</h3>
+            <div className="bg-white rounded-2xl p-6 shadow-sm">
+              <h3 className="font-bold text-xl text-gray-900 mb-3">🤝 후원 시스템</h3>
               <p>보호소를 직접 후원하여 유기견들이 더 나은 환경에서 지낼 수 있도록 도와주세요. 모든 후원 내역은 투명하게 공개됩니다.</p>
             </div>
           </div>
