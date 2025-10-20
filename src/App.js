@@ -7,6 +7,7 @@ import Shelters from './pages/Shelters';
 import Missing from './pages/Missing';
 import Adoption from './pages/Adoption';
 import Login from './pages/Login';
+import Signup from './pages/Signup';
 
 export default function App() {
   const [currentPage, setCurrentPage] = useState('home');
@@ -61,7 +62,7 @@ export default function App() {
         {currentPage === 'missing' && <Missing {...pageProps} />}
         {currentPage === 'adoption' && <Adoption {...pageProps} />}
         {currentPage === 'login' && <Login setCurrentPage={setCurrentPage} setIsLoggedIn={setIsLoggedIn} />}
-        {/* TODO: Signup 페이지 추가 예정 */}
+        {currentPage === 'signup' && <Signup setCurrentPage={setCurrentPage} />}
       </main>
 
       <Footer />
