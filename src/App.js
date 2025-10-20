@@ -1,13 +1,8 @@
 import React, { useState } from 'react';
+import Header from './components/common/Header';
+import Footer from './components/common/Footer';
+import LocationModal from './components/common/LocationModal';
 import Home from './pages/Home';
-import Shelters from './pages/Shelters';
-import Missing from './pages/Missing';
-import Adoption from './pages/Adoption';
-import Login from './pages/Login';
-import Signup from './pages/Signup';
-import Header from './components/Header';
-import Footer from './components/Footer';
-import LocationModal from './components/LocationModal';
 
 export default function App() {
   const [currentPage, setCurrentPage] = useState('home');
@@ -15,7 +10,6 @@ export default function App() {
   const [isLocationModalOpen, setIsLocationModalOpen] = useState(false);
   const [likedItems, setLikedItems] = useState(new Set());
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [signupType, setSignupType] = useState('');
 
   const toggleLike = (itemId) => {
     setLikedItems(prev => {
@@ -39,15 +33,13 @@ export default function App() {
     likedItems,
     toggleLike,
     isLoggedIn,
-    setIsLoggedIn,
-    signupType,
-    setSignupType
+    setIsLoggedIn
   };
 
   return (
     <div className="min-h-screen bg-gray-50">
       <Header 
-        currentPage={currentPage} 
+        currentPage={currentPage}
         setCurrentPage={setCurrentPage}
         isLoggedIn={isLoggedIn}
       />
@@ -61,11 +53,7 @@ export default function App() {
         )}
 
         {currentPage === 'home' && <Home {...pageProps} />}
-        {currentPage === 'shelters' && <Shelters {...pageProps} />}
-        {currentPage === 'missing' && <Missing {...pageProps} />}
-        {currentPage === 'adoption' && <Adoption {...pageProps} />}
-        {currentPage === 'login' && <Login {...pageProps} />}
-        {currentPage === 'signup' && <Signup {...pageProps} />}
+        {/* TODO: 다른 페이지들 (Shelters, Missing, Adoption, Login, Signup) 추가 예정 */}
       </main>
 
       <Footer />
