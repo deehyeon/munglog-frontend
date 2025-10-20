@@ -5,6 +5,7 @@ import LocationModal from './components/common/LocationModal';
 import Home from './pages/Home';
 import Shelters from './pages/Shelters';
 import Missing from './pages/Missing';
+import Adoption from './pages/Adoption';
 
 export default function App() {
   const [currentPage, setCurrentPage] = useState('home');
@@ -57,7 +58,8 @@ export default function App() {
         {currentPage === 'home' && <Home {...pageProps} />}
         {currentPage === 'shelters' && <Shelters {...pageProps} />}
         {currentPage === 'missing' && <Missing {...pageProps} />}
-        {/* TODO: Adoption, Login, Signup 페이지 추가 예정 */}
+        {currentPage === 'adoption' && <Adoption {...pageProps} />}
+        {/* TODO: Login, Signup 페이지 추가 예정 */}
       </main>
 
       <Footer />
