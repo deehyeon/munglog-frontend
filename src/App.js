@@ -3,6 +3,7 @@ import Header from './components/common/Header';
 import Footer from './components/common/Footer';
 import LocationModal from './components/common/LocationModal';
 import Home from './pages/Home';
+import Shelters from './pages/Shelters';
 
 export default function App() {
   const [currentPage, setCurrentPage] = useState('home');
@@ -53,7 +54,8 @@ export default function App() {
         )}
 
         {currentPage === 'home' && <Home {...pageProps} />}
-        {/* TODO: 다른 페이지들 (Shelters, Missing, Adoption, Login, Signup) 추가 예정 */}
+        {currentPage === 'shelters' && <Shelters {...pageProps} />}
+        {/* TODO: Missing, Adoption, Login, Signup 페이지 추가 예정 */}
       </main>
 
       <Footer />
