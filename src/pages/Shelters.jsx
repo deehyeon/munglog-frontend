@@ -7,9 +7,8 @@ export default function Shelters({
   toggleLike 
 }) {
   const [searchQuery, setSearchQuery] = useState('');
-  const [activeFilter, setActiveFilter] = useState('volunteer'); // volunteer, shelter, consulting, distance
+  const [activeFilter, setActiveFilter] = useState('volunteer');
 
-  // 임시 보호소 데이터
   const shelters = [
     {
       id: 1,
@@ -47,29 +46,26 @@ export default function Shelters({
   ];
 
   const filters = [
-    { id: 'volunteer', label: '🤝 봉사가능', color: 'yellow' },
-    { id: 'shelter', label: '🏠 보호소', color: 'red' },
-    { id: 'consulting', label: '👨‍⚕️ 컨설팅', color: 'blue' },
-    { id: 'distance', label: '📍 거리순', color: 'pink' }
+    { id: 'volunteer', label: '🤝 봉사가능' },
+    { id: 'shelter', label: '🏠 보호소' },
+    { id: 'consulting', label: '👨‍⚕️ 컨설팅' },
+    { id: 'distance', label: '📍 거리순' }
   ];
 
   return (
     <div className="space-y-6">
       {/* Hero Section */}
       <div className="relative bg-gradient-to-br from-blue-50 to-cyan-50 rounded-3xl p-12 overflow-hidden">
-        {/* 발자국 아이콘들 */}
         <div className="absolute top-10 left-20 text-2xl opacity-40">🐾</div>
         <div className="absolute top-32 right-32 text-2xl opacity-40">🐾</div>
         <div className="absolute bottom-20 left-1/4 text-2xl opacity-40">🐾</div>
         <div className="absolute bottom-32 right-20 text-2xl opacity-40">🐾</div>
 
         <div className="relative z-10 text-center space-y-6">
-          {/* 메인 메시지 */}
           <div className="inline-block bg-yellow-400 text-gray-800 px-8 py-4 rounded-full font-bold text-lg shadow-lg">
             당신하터 갈 보호소를 찾아볼까요? 🐕
           </div>
 
-          {/* 지도 이미지 영역 */}
           <div className="flex flex-col items-center space-y-3">
             <div className="w-20 h-20 bg-blue-200 rounded-lg flex items-center justify-center text-4xl shadow-md">
               🗺️
@@ -87,9 +83,7 @@ export default function Shelters({
 
       {/* Search and Filter Section */}
       <div className="bg-white rounded-2xl shadow-md p-6 space-y-4">
-        {/* 검색 바 */}
         <div className="flex gap-3">
-          {/* 지역 선택 */}
           <button
             onClick={() => setIsLocationModalOpen(true)}
             className="flex items-center gap-2 px-4 py-3 bg-white border-2 border-gray-300 rounded-xl hover:border-yellow-400 transition-colors font-medium"
@@ -100,7 +94,6 @@ export default function Shelters({
             </svg>
           </button>
 
-          {/* 검색 입력 */}
           <div className="flex-1 relative">
             <input
               type="text"
@@ -120,7 +113,6 @@ export default function Shelters({
           </div>
         </div>
 
-        {/* 필터 버튼들 */}
         <div className="flex gap-3 flex-wrap">
           {filters.map((filter) => (
             <button
@@ -138,34 +130,34 @@ export default function Shelters({
         </div>
       </div>
 
-      {/* Shelter List */}
-      <div className="space-y-4">
+      {/* Shelter List - 카드 크기와 글자 크기 축소 */}
+      <div className="space-y-3">
         {shelters.map((shelter) => (
           <div
             key={shelter.id}
-            className="bg-white rounded-2xl shadow-md p-6 hover:shadow-xl transition-shadow"
+            className="bg-white rounded-xl shadow-md p-4 hover:shadow-xl transition-shadow"
           >
-            <div className="flex gap-6">
-              {/* 보호소 아이콘 */}
-              <div className="w-24 h-24 bg-gray-100 rounded-xl flex items-center justify-center text-5xl flex-shrink-0">
+            <div className="flex gap-4">
+              {/* 보호소 아이콘 - 크기 축소 */}
+              <div className="w-16 h-16 bg-gray-100 rounded-lg flex items-center justify-center text-3xl flex-shrink-0">
                 {shelter.icon}
               </div>
 
               {/* 보호소 정보 */}
               <div className="flex-1">
-                <div className="flex items-start justify-between mb-3">
-                  <h3 className="text-xl font-bold text-gray-800">
+                <div className="flex items-start justify-between mb-2">
+                  <h3 className="text-base font-bold text-gray-800">
                     {shelter.name}
                   </h3>
                   <button
                     onClick={() => toggleLike(shelter.id)}
-                    className="text-2xl hover:scale-110 transition-transform"
+                    className="text-xl hover:scale-110 transition-transform"
                   >
                     {likedItems.has(shelter.id) ? '❤️' : '🤍'}
                   </button>
                 </div>
 
-                <div className="space-y-2 text-gray-600">
+                <div className="space-y-1 text-sm text-gray-600">
                   <div className="flex items-center gap-2">
                     <span className="text-yellow-500 font-semibold">📍 {shelter.distance}</span>
                     <span>{shelter.address}</span>
@@ -178,13 +170,13 @@ export default function Shelters({
                   </div>
                 </div>
 
-                <div className="flex items-center justify-between mt-4">
+                <div className="flex items-center justify-between mt-3">
                   <div className="flex items-center gap-2">
-                    <span className="text-yellow-500 text-xl">⭐</span>
-                    <span className="font-bold text-gray-800">{shelter.rating}</span>
-                    <span className="text-gray-500 text-sm">({shelter.reviews})</span>
+                    <span className="text-yellow-500 text-lg">⭐</span>
+                    <span className="font-bold text-gray-800 text-sm">{shelter.rating}</span>
+                    <span className="text-gray-500 text-xs">({shelter.reviews})</span>
                   </div>
-                  <button className="text-yellow-500 hover:text-yellow-600 font-medium flex items-center gap-1 group">
+                  <button className="text-yellow-500 hover:text-yellow-600 font-medium text-sm flex items-center gap-1 group">
                     자세히
                     <svg 
                       className="w-4 h-4 group-hover:translate-x-1 transition-transform" 
