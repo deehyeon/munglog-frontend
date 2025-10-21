@@ -2,8 +2,12 @@ import React from 'react';
 
 export default function Signup({ setCurrentPage }) {
   const handleSignup = (type) => {
-    console.log(`${type} 회원가입`);
-    setCurrentPage('login');
+    if (type === 'volunteer') {
+      setCurrentPage('volunteer-signup');
+    } else if (type === 'shelter') {
+      // TODO: 보호소 회원가입 페이지 구현
+      alert('보호소 회원가입 페이지는 준비 중입니다.');
+    }
   };
 
   return (
