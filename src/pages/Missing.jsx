@@ -81,7 +81,7 @@ export default function Missing({
                 : 'text-gray-400'
             }`}
           >
-            받은 건적서
+            실종 게시판
             {activeTab === 'missing' && (
               <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-red-500"></div>
             )}
@@ -94,7 +94,7 @@ export default function Missing({
                 : 'text-gray-400'
             }`}
           >
-            작성한 건적서
+            보호 게시판
             {activeTab === 'found' && (
               <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-red-500"></div>
             )}
