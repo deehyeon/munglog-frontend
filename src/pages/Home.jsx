@@ -399,7 +399,7 @@ export default function Home() {
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
           <div className="max-w-3xl w-full px-4 sm:px-6 pointer-events-auto">
             <div className="bg-white/20 backdrop-blur-md rounded-3xl p-8 shadow-2xl border border-white/30">
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 text-center mb-2 drop-shadow-lg">
+              <h2 className="text-2xl md:text-3xl font-bold text-gray-900 text-center mb-2 drop-shadow-lg">
                 유기견 보호소 봉사 신청 서비스
               </h2>
               <p className="text-center text-gray-800 font-semibold mb-6 drop-shadow">근처 보호소를 찾아보세요! 🐾</p>
