@@ -1,0 +1,516 @@
+import React, { useState } from 'react';
+
+export default function ShelterSignup({ setCurrentPage }) {
+  const [formData, setFormData] = useState({
+    // 기본 정보
+    shelterName: '',
+    address: '',
+    managerName: '',
+    phone: '',
+    email: '',
+    website: '',
+    
+    // 운영 정보
+    openingHours: '',
+    description: '',
+    
+    // 봉사 정보
+    volunteerDays: [],
+    volunteerTime: '',
+    
+    // 파일
+    facilityPhotos: [],
+    dogPhotos: [],
+    
+    // 로그인 정보
+    password: '',
+    passwordConfirm: ''
+  });
+
+  const [agreements, setAgreements] = useState({
+    all: false,
+    age: false,
+    terms: false,
+    privacy: false,
+    marketing: false,
+    robot: false
+  });
+
+  const weekDays = ['월', '화', '수', '목', '금', '토', '일'];
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const handleDayToggle = (day) => {
+    setFormData(prev => ({
+      ...prev,
+      volunteerDays: prev.volunteerDays.includes(day)
+        ? prev.volunteerDays.filter(d => d !== day)
+        : [...prev.volunteerDays, day]
+    }));
+  };
+
+  const handleFileChange = (e, type) => {
+    const files = Array.from(e.target.files);
+    setFormData(prev => ({
+      ...prev,
+      [type]: files
+    }));
+  };
+
+  const handleAgreementChange = (name) => {
+    if (name === 'all') {
+      const newValue = !agreements.all;
+      setAgreements({
+        all: newValue,
+        age: newValue,
+        terms: newValue,
+        privacy: newValue,
+        marketing: newValue,
+        robot: newValue
+      });
+    } else {
+      const newAgreements = {
+        ...agreements,
+        [name]: !agreements[name]
+      };
+      newAgreements.all = newAgreements.age && newAgreements.terms && newAgreements.privacy && newAgreements.marketing && newAgreements.robot;
+      setAgreements(newAgreements);
+    }
+  };
+
+  const handleSocialSignup = (provider) => {
+    console.log(`${provider} 보호소 회원가입`);
+    setCurrentPage('home');
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    
+    // 필수 약관 체크 확인
+    if (!agreements.age || !agreements.terms || !agreements.privacy || !agreements.robot) {
+      alert('필수 약관에 동의해주세요.');
+      return;
+    }
+
+    // 비밀번호 확인
+    if (formData.password !== formData.passwordConfirm) {
+      alert('비밀번호가 일치하지 않습니다.');
+      return;
+    }
+
+    // 필수 필드 확인
+    if (!formData.shelterName || !formData.address || !formData.managerName || !formData.phone || !formData.email) {
+      alert('필수 정보를 모두 입력해주세요.');
+      return;
+    }
+
+    console.log('보호소 회원가입 데이터:', formData, agreements);
+    alert('보호소 센터 회원가입이 완료되었습니다!');
+    setCurrentPage('login');
+  };
+
+  return (
+    <div className="min-h-[calc(100vh-200px)] flex items-center justify-center py-12">
+      <div className="w-full max-w-3xl">
+        <div className="bg-white rounded-2xl shadow-lg p-8">
+          {/* 제목 */}
+          <div className="text-center mb-8">
+            <div className="text-5xl mb-3">🏠</div>
+            <h1 className="text-3xl font-bold text-gray-800 mb-2">보호소 센터 회원가입</h1>
+            <p className="text-gray-600">보호소 정보를 등록하고 봉사자를 모집하세요</p>
+          </div>
+
+          {/* SNS 회원가입 */}
+          <div className="mb-8">
+            <p className="text-center text-gray-600 mb-4">SNS계정으로 간편하게 회원가입</p>
+            <div className="flex justify-center gap-4">
+              <button
+                onClick={() => handleSocialSignup('Facebook')}
+                className="w-14 h-14 rounded-full bg-[#1877F2] text-white flex items-center justify-center text-xl font-bold hover:scale-110 transition-transform shadow-md"
+              >
+                f
+              </button>
+              <button
+                onClick={() => handleSocialSignup('Kakao')}
+                className="w-14 h-14 rounded-full bg-[#FEE500] text-gray-800 flex items-center justify-center text-xl font-bold hover:scale-110 transition-transform shadow-md"
+              >
+                K
+              </button>
+              <button
+                onClick={() => handleSocialSignup('Naver')}
+                className="w-14 h-14 rounded-full bg-[#03C75A] text-white flex items-center justify-center text-xl font-bold hover:scale-110 transition-transform shadow-md"
+              >
+                N
+              </button>
+            </div>
+          </div>
+
+          {/* 구분선 */}
+          <div className="my-8">
+            <div className="relative">
+              <div className="absolute inset-0 flex items-center">
+                <div className="w-full border-t border-gray-300"></div>
+              </div>
+            </div>
+          </div>
+
+          {/* 회원가입 폼 */}
+          <form onSubmit={handleSubmit} className="space-y-6">
+            {/* 보호소 기본 정보 */}
+            <div className="bg-yellow-50 rounded-xl p-6 space-y-4">
+              <h3 className="text-lg font-bold text-gray-800 mb-4">📋 보호소 기본 정보</h3>
+
+              {/* 보호소 이름 */}
+              <div>
+                <label className="block text-sm font-semibold text-gray-800 mb-2">
+                  보호소 이름 <span className="text-red-500">*</span>
+                </label>
+                <input
+                  type="text"
+                  name="shelterName"
+                  value={formData.shelterName}
+                  onChange={handleInputChange}
+                  placeholder="예) 서울 강남 동물보호센터"
+                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-yellow-400"
+                  required
+                />
+              </div>
+
+              {/* 주소 */}
+              <div>
+                <label className="block text-sm font-semibold text-gray-800 mb-2">
+                  주소 <span className="text-red-500">*</span>
+                </label>
+                <input
+                  type="text"
+                  name="address"
+                  value={formData.address}
+                  onChange={handleInputChange}
+                  placeholder="보호소 주소를 입력하세요"
+                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-yellow-400"
+                  required
+                />
+              </div>
+
+              {/* 담당자 이름 */}
+              <div>
+                <label className="block text-sm font-semibold text-gray-800 mb-2">
+                  담당자 이름 <span className="text-red-500">*</span>
+                </label>
+                <input
+                  type="text"
+                  name="managerName"
+                  value={formData.managerName}
+                  onChange={handleInputChange}
+                  placeholder="담당자 성함을 입력하세요"
+                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-yellow-400"
+                  required
+                />
+              </div>
+
+              {/* 연락처 */}
+              <div>
+                <label className="block text-sm font-semibold text-gray-800 mb-2">
+                  연락처 <span className="text-red-500">*</span>
+                </label>
+                <input
+                  type="tel"
+                  name="phone"
+                  value={formData.phone}
+                  onChange={handleInputChange}
+                  placeholder="010-1234-5678"
+                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-yellow-400"
+                  required
+                />
+              </div>
+
+              {/* 이메일 */}
+              <div>
+                <label className="block text-sm font-semibold text-gray-800 mb-2">
+                  이메일 <span className="text-red-500">*</span>
+                </label>
+                <input
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleInputChange}
+                  placeholder="shelter@example.com"
+                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-yellow-400"
+                  required
+                />
+              </div>
+            </div>
+
+            {/* 보호소 상세 정보 */}
+            <div className="bg-blue-50 rounded-xl p-6 space-y-4">
+              <h3 className="text-lg font-bold text-gray-800 mb-4">🏥 보호소 상세 정보</h3>
+
+              {/* 시설 사진 */}
+              <div>
+                <label className="block text-sm font-semibold text-gray-800 mb-2">
+                  시설 사진
+                </label>
+                <input
+                  type="file"
+                  multiple
+                  accept="image/*"
+                  onChange={(e) => handleFileChange(e, 'facilityPhotos')}
+                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-yellow-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:bg-yellow-400 file:text-gray-800 file:font-semibold hover:file:bg-yellow-500"
+                />
+                <p className="text-xs text-gray-500 mt-1">시설 내부/외부 사진을 업로드하세요 (최대 5장)</p>
+              </div>
+
+              {/* 강아지 사진 */}
+              <div>
+                <label className="block text-sm font-semibold text-gray-800 mb-2">
+                  강아지 사진
+                </label>
+                <input
+                  type="file"
+                  multiple
+                  accept="image/*"
+                  onChange={(e) => handleFileChange(e, 'dogPhotos')}
+                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-yellow-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:bg-yellow-400 file:text-gray-800 file:font-semibold hover:file:bg-yellow-500"
+                />
+                <p className="text-xs text-gray-500 mt-1">보호 중인 강아지 사진을 업로드하세요 (최대 10장)</p>
+              </div>
+
+              {/* 홈페이지 링크 */}
+              <div>
+                <label className="block text-sm font-semibold text-gray-800 mb-2">
+                  홈페이지 / SNS 링크
+                </label>
+                <input
+                  type="url"
+                  name="website"
+                  value={formData.website}
+                  onChange={handleInputChange}
+                  placeholder="https://instagram.com/yourpage 또는 카페 링크"
+                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-yellow-400"
+                />
+                <p className="text-xs text-gray-500 mt-1">인스타그램, 카페, 홈페이지 등</p>
+              </div>
+
+              {/* 보호소 운영 시간 */}
+              <div>
+                <label className="block text-sm font-semibold text-gray-800 mb-2">
+                  보호소 운영 시간
+                </label>
+                <input
+                  type="text"
+                  name="openingHours"
+                  value={formData.openingHours}
+                  onChange={handleInputChange}
+                  placeholder="예) 평일 09:00-18:00, 주말 10:00-16:00"
+                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-yellow-400"
+                />
+              </div>
+
+              {/* 보호소 상세 설명 */}
+              <div>
+                <label className="block text-sm font-semibold text-gray-800 mb-2">
+                  보호소 상세 설명
+                </label>
+                <textarea
+                  name="description"
+                  value={formData.description}
+                  onChange={handleInputChange}
+                  placeholder="보호소의 특징, 시설 정보, 운영 방침 등을 자유롭게 작성해주세요"
+                  rows="5"
+                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-yellow-400 resize-none"
+                />
+              </div>
+            </div>
+
+            {/* 봉사 정보 */}
+            <div className="bg-green-50 rounded-xl p-6 space-y-4">
+              <h3 className="text-lg font-bold text-gray-800 mb-4">🤝 봉사 정보</h3>
+
+              {/* 봉사 가능 요일 */}
+              <div>
+                <label className="block text-sm font-semibold text-gray-800 mb-3">
+                  봉사 가능 요일
+                </label>
+                <div className="flex flex-wrap gap-2">
+                  {weekDays.map((day) => (
+                    <button
+                      key={day}
+                      type="button"
+                      onClick={() => handleDayToggle(day)}
+                      className={`px-4 py-2 rounded-full font-semibold transition-all ${
+                        formData.volunteerDays.includes(day)
+                          ? 'bg-yellow-400 text-gray-800 shadow-md'
+                          : 'bg-white border-2 border-gray-300 text-gray-600 hover:border-yellow-400'
+                      }`}
+                    >
+                      {day}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* 봉사 가능 시간 */}
+              <div>
+                <label className="block text-sm font-semibold text-gray-800 mb-2">
+                  봉사 가능 시간
+                </label>
+                <input
+                  type="text"
+                  name="volunteerTime"
+                  value={formData.volunteerTime}
+                  onChange={handleInputChange}
+                  placeholder="예) 오전 9시 - 오후 6시"
+                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-yellow-400"
+                />
+              </div>
+            </div>
+
+            {/* 로그인 정보 */}
+            <div className="space-y-4">
+              <h3 className="text-lg font-bold text-gray-800">🔐 로그인 정보</h3>
+
+              {/* 비밀번호 */}
+              <div>
+                <label className="block text-sm font-semibold text-gray-800 mb-2">
+                  비밀번호 <span className="text-red-500">*</span>
+                </label>
+                <p className="text-xs text-gray-500 mb-2">영문, 숫자를 포함한 8자 이상의 비밀번호를 입력해주세요.</p>
+                <input
+                  type="password"
+                  name="password"
+                  value={formData.password}
+                  onChange={handleInputChange}
+                  placeholder="비밀번호"
+                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-yellow-400"
+                  required
+                />
+              </div>
+
+              {/* 비밀번호 확인 */}
+              <div>
+                <label className="block text-sm font-semibold text-gray-800 mb-2">
+                  비밀번호 확인 <span className="text-red-500">*</span>
+                </label>
+                <input
+                  type="password"
+                  name="passwordConfirm"
+                  value={formData.passwordConfirm}
+                  onChange={handleInputChange}
+                  placeholder="비밀번호 확인"
+                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-yellow-400"
+                  required
+                />
+              </div>
+            </div>
+
+            {/* 약관동의 */}
+            <div className="pt-6 border-t border-gray-200">
+              <h3 className="text-lg font-semibold text-gray-800 mb-4">약관동의</h3>
+              
+              {/* 전체동의 */}
+              <label className="flex items-center gap-3 p-3 mb-3 cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={agreements.all}
+                  onChange={() => handleAgreementChange('all')}
+                  className="w-5 h-5 rounded border-gray-300 text-yellow-400 focus:ring-yellow-400"
+                />
+                <span className="font-semibold text-gray-800">전체동의</span>
+                <span className="text-sm text-gray-500">선택항목에 대한 동의 포함</span>
+              </label>
+
+              <div className="space-y-2">
+                <label className="flex items-center gap-3 p-3 cursor-pointer hover:bg-gray-50 rounded-lg">
+                  <input
+                    type="checkbox"
+                    checked={agreements.age}
+                    onChange={() => handleAgreementChange('age')}
+                    className="w-5 h-5 rounded border-gray-300 text-yellow-400 focus:ring-yellow-400"
+                  />
+                  <span className="text-gray-700">만 14세 이상입니다</span>
+                  <span className="text-sm text-blue-600">(필수)</span>
+                </label>
+
+                <label className="flex items-center gap-3 p-3 cursor-pointer hover:bg-gray-50 rounded-lg">
+                  <input
+                    type="checkbox"
+                    checked={agreements.terms}
+                    onChange={() => handleAgreementChange('terms')}
+                    className="w-5 h-5 rounded border-gray-300 text-yellow-400 focus:ring-yellow-400"
+                  />
+                  <span className="flex-1 text-gray-700">이용약관</span>
+                  <span className="text-sm text-blue-600">(필수)</span>
+                  <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </label>
+
+                <label className="flex items-center gap-3 p-3 cursor-pointer hover:bg-gray-50 rounded-lg">
+                  <input
+                    type="checkbox"
+                    checked={agreements.privacy}
+                    onChange={() => handleAgreementChange('privacy')}
+                    className="w-5 h-5 rounded border-gray-300 text-yellow-400 focus:ring-yellow-400"
+                  />
+                  <span className="flex-1 text-gray-700">개인정보 마케팅 활용 동의</span>
+                  <span className="text-sm text-gray-500">(선택)</span>
+                  <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </label>
+
+                <label className="flex items-center gap-3 p-3 cursor-pointer hover:bg-gray-50 rounded-lg">
+                  <input
+                    type="checkbox"
+                    checked={agreements.marketing}
+                    onChange={() => handleAgreementChange('marketing')}
+                    className="w-5 h-5 rounded border-gray-300 text-yellow-400 focus:ring-yellow-400"
+                  />
+                  <span className="flex-1 text-gray-700">이벤트, 쿠폰, 특가 알림 메일 및 SMS 등 수신</span>
+                  <span className="text-sm text-gray-500">(선택)</span>
+                </label>
+
+                <label className="flex items-center gap-3 p-4 cursor-pointer bg-yellow-50 border-2 border-yellow-400 rounded-lg">
+                  <input
+                    type="checkbox"
+                    checked={agreements.robot}
+                    onChange={() => handleAgreementChange('robot')}
+                    className="w-5 h-5 rounded border-gray-300 text-yellow-400 focus:ring-yellow-400"
+                  />
+                  <span className="font-semibold text-gray-800">로봇이 아닙니다.</span>
+                </label>
+              </div>
+            </div>
+
+            {/* 회원가입 버튼 */}
+            <button
+              type="submit"
+              className="w-full py-4 bg-yellow-400 text-gray-800 rounded-lg font-bold text-lg hover:bg-yellow-500 transition-colors shadow-md"
+            >
+              보호소 센터 회원가입하기
+            </button>
+          </form>
+
+          {/* 로그인 링크 */}
+          <div className="mt-6 text-center">
+            <p className="text-gray-600">
+              이미 아이디가 있으신가요?{' '}
+              <button
+                onClick={() => setCurrentPage('login')}
+                className="text-yellow-500 font-semibold hover:text-yellow-600 transition-colors"
+              >
+                로그인
+              </button>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
