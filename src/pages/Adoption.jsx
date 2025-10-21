@@ -11,7 +11,6 @@ export default function Adoption({
   const [genderFilter, setGenderFilter] = useState('all');
   const [healthFilter, setHealthFilter] = useState('all');
 
-  // 임시 분양 강아지 데이터
   const dogs = [
     {
       id: 1,
@@ -105,12 +104,12 @@ export default function Adoption({
 
   return (
     <div className="space-y-6">
-      {/* Header Section */}
+      {/* Header */}
       <div className="bg-white rounded-2xl shadow-md p-8 text-center">
-        <h1 className="text-3xl font-bold text-gray-800 mb-3">
+        <h1 className="text-2xl font-bold text-gray-800 mb-3">
           🏠 새로운 가족을 찾아요
         </h1>
-        <p className="text-gray-600">
+        <p className="text-gray-600 text-sm">
           따뜻한 가정에서 사랑받을 반려견들이 기다리고 있어요
         </p>
       </div>
@@ -118,19 +117,17 @@ export default function Adoption({
       {/* Filter Section */}
       <div className="bg-white rounded-2xl shadow-md p-6">
         <div className="flex items-center gap-3 mb-4 flex-wrap">
-          {/* 지역 선택 */}
           <button
             onClick={() => setIsLocationModalOpen(true)}
-            className="flex items-center gap-2 px-4 py-2 bg-yellow-400 text-gray-800 rounded-full font-medium hover:bg-yellow-500 transition-colors"
+            className="flex items-center gap-2 px-4 py-2 bg-yellow-400 text-gray-800 rounded-full text-sm font-medium hover:bg-yellow-500 transition-colors"
           >
             📍 {selectedRegion}
           </button>
 
-          {/* 나이 필터 */}
           <select
             value={ageFilter}
             onChange={(e) => setAgeFilter(e.target.value)}
-            className="px-4 py-2 border-2 border-gray-300 rounded-full font-medium hover:border-yellow-400 transition-colors cursor-pointer focus:outline-none focus:border-yellow-400"
+            className="px-4 py-2 border-2 border-gray-300 rounded-full text-sm font-medium hover:border-yellow-400 transition-colors cursor-pointer focus:outline-none focus:border-yellow-400"
           >
             <option value="all">나이 전체</option>
             <option value="1">1년 미만</option>
@@ -138,22 +135,20 @@ export default function Adoption({
             <option value="3+">3년 이상</option>
           </select>
 
-          {/* 성별 필터 */}
           <select
             value={genderFilter}
             onChange={(e) => setGenderFilter(e.target.value)}
-            className="px-4 py-2 border-2 border-gray-300 rounded-full font-medium hover:border-yellow-400 transition-colors cursor-pointer focus:outline-none focus:border-yellow-400"
+            className="px-4 py-2 border-2 border-gray-300 rounded-full text-sm font-medium hover:border-yellow-400 transition-colors cursor-pointer focus:outline-none focus:border-yellow-400"
           >
             <option value="all">성별 전체</option>
             <option value="male">남아</option>
             <option value="female">여아</option>
           </select>
 
-          {/* 건강 필터 */}
           <select
             value={healthFilter}
             onChange={(e) => setHealthFilter(e.target.value)}
-            className="px-4 py-2 border-2 border-gray-300 rounded-full font-medium hover:border-yellow-400 transition-colors cursor-pointer focus:outline-none focus:border-yellow-400"
+            className="px-4 py-2 border-2 border-gray-300 rounded-full text-sm font-medium hover:border-yellow-400 transition-colors cursor-pointer focus:outline-none focus:border-yellow-400"
           >
             <option value="all">건강 전체</option>
             <option value="excellent">매우 건강</option>
@@ -161,27 +156,20 @@ export default function Adoption({
             <option value="fair">양호</option>
           </select>
 
-          {/* 검색바 */}
           <div className="flex-1 min-w-[200px] relative">
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="품종, 이름으로 검색"
-              className="w-full px-4 py-2 pl-10 border-2 border-gray-300 rounded-full focus:outline-none focus:border-yellow-400"
+              className="w-full px-4 py-2 pl-10 text-sm border-2 border-gray-300 rounded-full focus:outline-none focus:border-yellow-400"
             />
-            <svg 
-              className="w-5 h-5 absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
-              fill="none" 
-              stroke="currentColor" 
-              viewBox="0 0 24 24"
-            >
+            <svg className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
             </svg>
           </div>
 
-          {/* 분양글 작성 버튼 */}
-          <button className="flex items-center gap-2 px-6 py-2 bg-yellow-400 text-gray-800 rounded-full font-bold hover:bg-yellow-500 transition-colors shadow-md ml-auto whitespace-nowrap">
+          <button className="flex items-center gap-2 px-6 py-2 bg-yellow-400 text-gray-800 rounded-full text-sm font-bold hover:bg-yellow-500 transition-colors shadow-md ml-auto whitespace-nowrap">
             ✍️ 분양글 작성
           </button>
         </div>
@@ -194,63 +182,54 @@ export default function Adoption({
             key={dog.id}
             className="bg-gradient-to-br from-yellow-100 to-yellow-200 rounded-2xl shadow-md hover:shadow-xl transition-all overflow-hidden relative"
           >
-            {/* 찜하기 버튼 */}
             <button
               onClick={() => toggleLike(dog.id)}
               className="absolute top-3 right-3 z-10 bg-white rounded-full p-2 shadow-md hover:scale-110 transition-transform"
             >
-              <span className="text-xl">
+              <span className="text-lg">
                 {likedItems.has(dog.id) ? '❤️' : '🤍'}
               </span>
             </button>
 
-            {/* 분양완료 배지 */}
             {dog.adopted && (
               <div className="absolute top-3 left-3 z-10 bg-gray-800 text-white px-3 py-1 rounded-full text-xs font-bold">
                 분양완료
               </div>
             )}
 
-            {/* 강아지 이미지 */}
-            <div className="h-48 flex items-center justify-center text-8xl bg-yellow-200">
+            <div className="h-40 flex items-center justify-center text-6xl bg-yellow-200">
               {dog.emoji}
             </div>
 
-            {/* 강아지 정보 */}
-            <div className="p-5">
+            <div className="p-4">
               <div className="flex items-center justify-between mb-2">
-                <h3 className="text-xl font-bold text-gray-800">{dog.name}</h3>
-                <span className="text-sm font-medium text-yellow-700">{dog.region}</span>
+                <h3 className="text-lg font-bold text-gray-800">{dog.name}</h3>
+                <span className="text-xs font-medium text-yellow-700">{dog.region}</span>
               </div>
 
-              <p className="text-gray-700 mb-4">{dog.breed}</p>
+              <p className="text-gray-700 text-sm mb-3">{dog.breed}</p>
 
-              {/* 상세 정보 */}
-              <div className="grid grid-cols-3 gap-2 mb-4 text-center">
+              <div className="grid grid-cols-3 gap-2 mb-3 text-center">
                 <div>
                   <p className="text-xs text-gray-600">나이</p>
-                  <p className="font-bold text-gray-800">{dog.age}</p>
+                  <p className="font-bold text-gray-800 text-sm">{dog.age}</p>
                 </div>
                 <div>
                   <p className="text-xs text-gray-600">성별</p>
-                  <p className="font-bold text-gray-800">{dog.gender}</p>
+                  <p className="font-bold text-gray-800 text-sm">{dog.gender}</p>
                 </div>
                 <div>
                   <p className="text-xs text-gray-600">체중</p>
-                  <p className="font-bold text-gray-800">{dog.weight}</p>
+                  <p className="font-bold text-gray-800 text-sm">{dog.weight}</p>
                 </div>
               </div>
 
-              {/* 분양 신청 버튼 */}
               {dog.adopted ? (
-                <button 
-                  disabled
-                  className="w-full py-3 bg-gray-400 text-white rounded-full font-bold cursor-not-allowed"
-                >
+                <button disabled className="w-full py-2 bg-gray-400 text-white rounded-full text-sm font-bold cursor-not-allowed">
                   분양 완료됨
                 </button>
               ) : (
-                <button className="w-full py-3 bg-yellow-400 text-gray-800 rounded-full font-bold hover:bg-yellow-500 transition-colors shadow-md">
+                <button className="w-full py-2 bg-yellow-400 text-gray-800 rounded-full text-sm font-bold hover:bg-yellow-500 transition-colors shadow-md">
                   분양 신청하기
                 </button>
               )}
@@ -259,11 +238,10 @@ export default function Adoption({
         ))}
       </div>
 
-      {/* Empty State */}
       {dogs.length === 0 && (
         <div className="text-center py-16 bg-white rounded-2xl shadow-md">
-          <div className="text-6xl mb-4">🐕</div>
-          <p className="text-gray-600 text-lg font-medium">
+          <div className="text-5xl mb-4">🐕</div>
+          <p className="text-gray-600 text-base font-medium">
             현재 분양 가능한 강아지가 없습니다
           </p>
           <p className="text-gray-500 text-sm mt-2">
