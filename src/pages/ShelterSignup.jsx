@@ -2,12 +2,16 @@ import React, { useState } from 'react';
 
 export default function ShelterSignup({ setCurrentPage }) {
   const [formData, setFormData] = useState({
-    // 기본 정보
+    // 로그인 정보
+    email: '',
+    password: '',
+    passwordConfirm: '',
+    
+    // 보호소 기본 정보
     shelterName: '',
     address: '',
     managerName: '',
     phone: '',
-    email: '',
     website: '',
     
     // 운영 정보
@@ -20,11 +24,7 @@ export default function ShelterSignup({ setCurrentPage }) {
     
     // 파일
     facilityPhotos: [],
-    dogPhotos: [],
-    
-    // 로그인 정보
-    password: '',
-    passwordConfirm: ''
+    dogPhotos: []
   });
 
   const [agreements, setAgreements] = useState({
@@ -34,6 +34,11 @@ export default function ShelterSignup({ setCurrentPage }) {
     privacy: false,
     marketing: false,
     robot: false
+  });
+
+  const [verification, setVerification] = useState({
+    emailVerified: false,
+    phoneVerified: false
   });
 
   const weekDays = ['월', '화', '수', '목', '금', '토', '일'];
@@ -84,14 +89,47 @@ export default function ShelterSignup({ setCurrentPage }) {
     }
   };
 
+  const handleEmailVerification = () => {
+    if (!formData.email) {
+      alert('이메일을 입력해주세요.');
+      return;
+    }
+    // TODO: 실제 이메일 인증 로직
+    alert('인증 이메일이 발송되었습니다.');
+    setVerification(prev => ({ ...prev, emailVerified: true }));
+  };
+
+  const handlePhoneVerification = () => {
+    if (!formData.phone) {
+      alert('전화번호를 입력해주세요.');
+      return;
+    }
+    // TODO: 실제 전화번호 인증 로직
+    alert('인증번호가 발송되었습니다.');
+    setVerification(prev => ({ ...prev, phoneVerified: true }));
+  };
+
   const handleSocialSignup = (provider) => {
     console.log(`${provider} 보호소 회원가입`);
+    // TODO: SNS 회원가입 로직
     setCurrentPage('home');
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     
+    // 이메일 인증 확인
+    if (!verification.emailVerified) {
+      alert('이메일 인증을 완료해주세요.');
+      return;
+    }
+
+    // 전화번호 인증 확인
+    if (!verification.phoneVerified) {
+      alert('전화번호 인증을 완료해주세요.');
+      return;
+    }
+
     // 필수 약관 체크 확인
     if (!agreements.age || !agreements.terms || !agreements.privacy || !agreements.robot) {
       alert('필수 약관에 동의해주세요.');
@@ -127,7 +165,7 @@ export default function ShelterSignup({ setCurrentPage }) {
           </div>
 
           {/* SNS 회원가입 */}
-          <div className="mb-8">
+          <div className="mb-6">
             <p className="text-center text-gray-600 mb-4">SNS계정으로 간편하게 회원가입</p>
             <div className="flex justify-center gap-4">
               <button
@@ -152,16 +190,91 @@ export default function ShelterSignup({ setCurrentPage }) {
           </div>
 
           {/* 구분선 */}
-          <div className="my-8">
+          <div className="my-6">
             <div className="relative">
               <div className="absolute inset-0 flex items-center">
                 <div className="w-full border-t border-gray-300"></div>
+              </div>
+              <div className="relative flex justify-center text-sm">
+                <span className="px-4 bg-white text-gray-500">또는 이메일로 가입</span>
               </div>
             </div>
           </div>
 
           {/* 회원가입 폼 */}
           <form onSubmit={handleSubmit} className="space-y-6">
+            {/* 계정 정보 */}
+            <div className="bg-purple-50 rounded-xl p-6 space-y-4">
+              <h3 className="text-lg font-bold text-gray-800 mb-4">🔐 계정 정보</h3>
+
+              {/* 이메일 (아이디) */}
+              <div>
+                <label className="block text-sm font-semibold text-gray-800 mb-2">
+                  이메일 (아이디로 사용) <span className="text-red-500">*</span>
+                </label>
+                <div className="flex gap-2">
+                  <input
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    placeholder="shelter@example.com"
+                    className="flex-1 px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-yellow-400"
+                    required
+                    disabled={verification.emailVerified}
+                  />
+                  <button
+                    type="button"
+                    onClick={handleEmailVerification}
+                    disabled={verification.emailVerified}
+                    className={`px-6 py-3 rounded-lg font-semibold whitespace-nowrap transition-colors ${
+                      verification.emailVerified
+                        ? 'bg-green-500 text-white cursor-not-allowed'
+                        : 'bg-yellow-400 text-gray-800 hover:bg-yellow-500'
+                    }`}
+                  >
+                    {verification.emailVerified ? '✓ 인증완료' : '이메일 인증'}
+                  </button>
+                </div>
+                {verification.emailVerified && (
+                  <p className="text-sm text-green-600 mt-1">✓ 이메일 인증이 완료되었습니다.</p>
+                )}
+              </div>
+
+              {/* 비밀번호 */}
+              <div>
+                <label className="block text-sm font-semibold text-gray-800 mb-2">
+                  비밀번호 <span className="text-red-500">*</span>
+                </label>
+                <p className="text-xs text-gray-500 mb-2">영문, 숫자를 포함한 8자 이상의 비밀번호를 입력해주세요.</p>
+                <input
+                  type="password"
+                  name="password"
+                  value={formData.password}
+                  onChange={handleInputChange}
+                  placeholder="비밀번호"
+                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-yellow-400"
+                  required
+                />
+              </div>
+
+              {/* 비밀번호 확인 */}
+              <div>
+                <label className="block text-sm font-semibold text-gray-800 mb-2">
+                  비밀번호 확인 <span className="text-red-500">*</span>
+                </label>
+                <input
+                  type="password"
+                  name="passwordConfirm"
+                  value={formData.passwordConfirm}
+                  onChange={handleInputChange}
+                  placeholder="비밀번호 확인"
+                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-yellow-400"
+                  required
+                />
+              </div>
+            </div>
+
             {/* 보호소 기본 정보 */}
             <div className="bg-yellow-50 rounded-xl p-6 space-y-4">
               <h3 className="text-lg font-bold text-gray-800 mb-4">📋 보호소 기본 정보</h3>
@@ -219,31 +332,33 @@ export default function ShelterSignup({ setCurrentPage }) {
                 <label className="block text-sm font-semibold text-gray-800 mb-2">
                   연락처 <span className="text-red-500">*</span>
                 </label>
-                <input
-                  type="tel"
-                  name="phone"
-                  value={formData.phone}
-                  onChange={handleInputChange}
-                  placeholder="010-1234-5678"
-                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-yellow-400"
-                  required
-                />
-              </div>
-
-              {/* 이메일 */}
-              <div>
-                <label className="block text-sm font-semibold text-gray-800 mb-2">
-                  이메일 <span className="text-red-500">*</span>
-                </label>
-                <input
-                  type="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleInputChange}
-                  placeholder="shelter@example.com"
-                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-yellow-400"
-                  required
-                />
+                <div className="flex gap-2">
+                  <input
+                    type="tel"
+                    name="phone"
+                    value={formData.phone}
+                    onChange={handleInputChange}
+                    placeholder="010-1234-5678"
+                    className="flex-1 px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-yellow-400"
+                    required
+                    disabled={verification.phoneVerified}
+                  />
+                  <button
+                    type="button"
+                    onClick={handlePhoneVerification}
+                    disabled={verification.phoneVerified}
+                    className={`px-6 py-3 rounded-lg font-semibold whitespace-nowrap transition-colors ${
+                      verification.phoneVerified
+                        ? 'bg-green-500 text-white cursor-not-allowed'
+                        : 'bg-yellow-400 text-gray-800 hover:bg-yellow-500'
+                    }`}
+                  >
+                    {verification.phoneVerified ? '✓ 인증완료' : '전화번호 인증'}
+                  </button>
+                </div>
+                {verification.phoneVerified && (
+                  <p className="text-sm text-green-600 mt-1">✓ 전화번호 인증이 완료되었습니다.</p>
+                )}
               </div>
             </div>
 
@@ -367,44 +482,6 @@ export default function ShelterSignup({ setCurrentPage }) {
                   onChange={handleInputChange}
                   placeholder="예) 오전 9시 - 오후 6시"
                   className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-yellow-400"
-                />
-              </div>
-            </div>
-
-            {/* 로그인 정보 */}
-            <div className="space-y-4">
-              <h3 className="text-lg font-bold text-gray-800">🔐 로그인 정보</h3>
-
-              {/* 비밀번호 */}
-              <div>
-                <label className="block text-sm font-semibold text-gray-800 mb-2">
-                  비밀번호 <span className="text-red-500">*</span>
-                </label>
-                <p className="text-xs text-gray-500 mb-2">영문, 숫자를 포함한 8자 이상의 비밀번호를 입력해주세요.</p>
-                <input
-                  type="password"
-                  name="password"
-                  value={formData.password}
-                  onChange={handleInputChange}
-                  placeholder="비밀번호"
-                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-yellow-400"
-                  required
-                />
-              </div>
-
-              {/* 비밀번호 확인 */}
-              <div>
-                <label className="block text-sm font-semibold text-gray-800 mb-2">
-                  비밀번호 확인 <span className="text-red-500">*</span>
-                </label>
-                <input
-                  type="password"
-                  name="passwordConfirm"
-                  value={formData.passwordConfirm}
-                  onChange={handleInputChange}
-                  placeholder="비밀번호 확인"
-                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-yellow-400"
-                  required
                 />
               </div>
             </div>
