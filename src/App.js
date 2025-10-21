@@ -9,6 +9,7 @@ import Adoption from './pages/Adoption';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import VolunteerSignup from './pages/VolunteerSignup';
+import ShelterSignup from './pages/ShelterSignup';
 
 export default function App() {
   const [currentPage, setCurrentPage] = useState('home');
@@ -65,6 +66,7 @@ export default function App() {
         {currentPage === 'login' && <Login setCurrentPage={setCurrentPage} setIsLoggedIn={setIsLoggedIn} />}
         {currentPage === 'signup' && <Signup setCurrentPage={setCurrentPage} />}
         {currentPage === 'volunteer-signup' && <VolunteerSignup setCurrentPage={setCurrentPage} />}
+        {currentPage === 'shelter-signup' && <ShelterSignup setCurrentPage={setCurrentPage} />}
       </main>
 
       <Footer />
