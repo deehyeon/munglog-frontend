@@ -12,7 +12,9 @@ export default function ShelterSignup({ setCurrentPage }) {
     address: '',
     managerName: '',
     phone: '',
-    website: '',
+    
+    // 홈페이지 링크 (최대 3개)
+    websiteLinks: [''],
     
     // 운영 정보
     openingHours: '',
@@ -41,6 +43,10 @@ export default function ShelterSignup({ setCurrentPage }) {
     phoneVerified: false
   });
 
+  // 파일 미리보기 URL
+  const [facilityPreviews, setFacilityPreviews] = useState([]);
+  const [dogPreviews, setDogPreviews] = useState([]);
+
   const weekDays = ['월', '화', '수', '목', '금', '토', '일'];
 
   const handleInputChange = (e) => {
@@ -60,12 +66,92 @@ export default function ShelterSignup({ setCurrentPage }) {
     }));
   };
 
-  const handleFileChange = (e, type) => {
-    const files = Array.from(e.target.files);
+  // 웹사이트 링크 추가
+  const addWebsiteLink = () => {
+    if (formData.websiteLinks.length < 3) {
+      setFormData(prev => ({
+        ...prev,
+        websiteLinks: [...prev.websiteLinks, '']
+      }));
+    }
+  };
+
+  // 웹사이트 링크 제거
+  const removeWebsiteLink = (index) => {
     setFormData(prev => ({
       ...prev,
-      [type]: files
+      websiteLinks: prev.websiteLinks.filter((_, i) => i !== index)
     }));
+  };
+
+  // 웹사이트 링크 변경
+  const handleWebsiteLinkChange = (index, value) => {
+    setFormData(prev => ({
+      ...prev,
+      websiteLinks: prev.websiteLinks.map((link, i) => i === index ? value : link)
+    }));
+  };
+
+  // 파일 업로드 처리 (시설 사진)
+  const handleFacilityPhotoChange = (e) => {
+    const files = Array.from(e.target.files);
+    if (files.length + formData.facilityPhotos.length > 5) {
+      alert('시설 사진은 최대 5장까지 업로드 가능합니다.');
+      return;
+    }
+
+    setFormData(prev => ({
+      ...prev,
+      facilityPhotos: [...prev.facilityPhotos, ...files]
+    }));
+
+    // 미리보기 생성
+    const newPreviews = files.map(file => ({
+      name: file.name,
+      size: `${Math.round(file.size / 1024)}KB`,
+      url: URL.createObjectURL(file)
+    }));
+    setFacilityPreviews(prev => [...prev, ...newPreviews]);
+  };
+
+  // 파일 업로드 처리 (강아지 사진)
+  const handleDogPhotoChange = (e) => {
+    const files = Array.from(e.target.files);
+    if (files.length + formData.dogPhotos.length > 10) {
+      alert('강아지 사진은 최대 10장까지 업로드 가능합니다.');
+      return;
+    }
+
+    setFormData(prev => ({
+      ...prev,
+      dogPhotos: [...prev.dogPhotos, ...files]
+    }));
+
+    // 미리보기 생성
+    const newPreviews = files.map(file => ({
+      name: file.name,
+      size: `${Math.round(file.size / 1024)}KB`,
+      url: URL.createObjectURL(file)
+    }));
+    setDogPreviews(prev => [...prev, ...newPreviews]);
+  };
+
+  // 시설 사진 삭제
+  const removeFacilityPhoto = (index) => {
+    setFormData(prev => ({
+      ...prev,
+      facilityPhotos: prev.facilityPhotos.filter((_, i) => i !== index)
+    }));
+    setFacilityPreviews(prev => prev.filter((_, i) => i !== index));
+  };
+
+  // 강아지 사진 삭제
+  const removeDogPhoto = (index) => {
+    setFormData(prev => ({
+      ...prev,
+      dogPhotos: prev.dogPhotos.filter((_, i) => i !== index)
+    }));
+    setDogPreviews(prev => prev.filter((_, i) => i !== index));
   };
 
   const handleAgreementChange = (name) => {
@@ -204,7 +290,7 @@ export default function ShelterSignup({ setCurrentPage }) {
           {/* 회원가입 폼 */}
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* 계정 정보 */}
-            <div className="bg-purple-50 rounded-xl p-6 space-y-4">
+            <div className="border-4 border-yellow-400 rounded-xl p-6 space-y-4">
               <h3 className="text-lg font-bold text-gray-800 mb-4">🔐 계정 정보</h3>
 
               {/* 이메일 (아이디) */}
@@ -276,7 +362,7 @@ export default function ShelterSignup({ setCurrentPage }) {
             </div>
 
             {/* 보호소 기본 정보 */}
-            <div className="bg-yellow-50 rounded-xl p-6 space-y-4">
+            <div className="border-4 border-yellow-400 rounded-xl p-6 space-y-4">
               <h3 className="text-lg font-bold text-gray-800 mb-4">📋 보호소 기본 정보</h3>
 
               {/* 보호소 이름 */}
@@ -363,7 +449,7 @@ export default function ShelterSignup({ setCurrentPage }) {
             </div>
 
             {/* 보호소 상세 정보 */}
-            <div className="bg-blue-50 rounded-xl p-6 space-y-4">
+            <div className="border-4 border-yellow-400 rounded-xl p-6 space-y-4">
               <h3 className="text-lg font-bold text-gray-800 mb-4">🏥 보호소 상세 정보</h3>
 
               {/* 시설 사진 */}
@@ -375,10 +461,34 @@ export default function ShelterSignup({ setCurrentPage }) {
                   type="file"
                   multiple
                   accept="image/*"
-                  onChange={(e) => handleFileChange(e, 'facilityPhotos')}
+                  onChange={handleFacilityPhotoChange}
                   className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-yellow-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:bg-yellow-400 file:text-gray-800 file:font-semibold hover:file:bg-yellow-500"
                 />
                 <p className="text-xs text-gray-500 mt-1">시설 내부/외부 사진을 업로드하세요 (최대 5장)</p>
+                
+                {/* 시설 사진 미리보기 */}
+                {facilityPreviews.length > 0 && (
+                  <div className="mt-4 space-y-2">
+                    {facilityPreviews.map((preview, index) => (
+                      <div key={index} className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg border border-gray-200">
+                        <img src={preview.url} alt={preview.name} className="w-12 h-12 rounded object-cover" />
+                        <div className="flex-1">
+                          <p className="text-sm font-medium text-gray-800">{preview.name}</p>
+                          <p className="text-xs text-gray-500">{preview.size}</p>
+                        </div>
+                        <button
+                          type="button"
+                          onClick={() => removeFacilityPhoto(index)}
+                          className="text-gray-400 hover:text-red-500 transition-colors"
+                        >
+                          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                          </svg>
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
 
               {/* 강아지 사진 */}
@@ -390,25 +500,72 @@ export default function ShelterSignup({ setCurrentPage }) {
                   type="file"
                   multiple
                   accept="image/*"
-                  onChange={(e) => handleFileChange(e, 'dogPhotos')}
+                  onChange={handleDogPhotoChange}
                   className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-yellow-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:bg-yellow-400 file:text-gray-800 file:font-semibold hover:file:bg-yellow-500"
                 />
                 <p className="text-xs text-gray-500 mt-1">보호 중인 강아지 사진을 업로드하세요 (최대 10장)</p>
+                
+                {/* 강아지 사진 미리보기 */}
+                {dogPreviews.length > 0 && (
+                  <div className="mt-4 space-y-2">
+                    {dogPreviews.map((preview, index) => (
+                      <div key={index} className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg border border-gray-200">
+                        <img src={preview.url} alt={preview.name} className="w-12 h-12 rounded object-cover" />
+                        <div className="flex-1">
+                          <p className="text-sm font-medium text-gray-800">{preview.name}</p>
+                          <p className="text-xs text-gray-500">{preview.size}</p>
+                        </div>
+                        <button
+                          type="button"
+                          onClick={() => removeDogPhoto(index)}
+                          className="text-gray-400 hover:text-red-500 transition-colors"
+                        >
+                          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                          </svg>
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
 
-              {/* 홈페이지 링크 */}
+              {/* 홈페이지 / SNS 링크 (최대 3개) */}
               <div>
                 <label className="block text-sm font-semibold text-gray-800 mb-2">
-                  홈페이지 / SNS 링크
+                  홈페이지 / SNS 링크 (최대 3개)
                 </label>
-                <input
-                  type="url"
-                  name="website"
-                  value={formData.website}
-                  onChange={handleInputChange}
-                  placeholder="https://instagram.com/yourpage 또는 카페 링크"
-                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-yellow-400"
-                />
+                <div className="space-y-2">
+                  {formData.websiteLinks.map((link, index) => (
+                    <div key={index} className="flex gap-2">
+                      <input
+                        type="url"
+                        value={link}
+                        onChange={(e) => handleWebsiteLinkChange(index, e.target.value)}
+                        placeholder="https://instagram.com/yourpage 또는 카페 링크"
+                        className="flex-1 px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-yellow-400"
+                      />
+                      {formData.websiteLinks.length > 1 && (
+                        <button
+                          type="button"
+                          onClick={() => removeWebsiteLink(index)}
+                          className="px-4 py-3 text-red-500 hover:bg-red-50 rounded-lg transition-colors"
+                        >
+                          삭제
+                        </button>
+                      )}
+                    </div>
+                  ))}
+                </div>
+                {formData.websiteLinks.length < 3 && (
+                  <button
+                    type="button"
+                    onClick={addWebsiteLink}
+                    className="mt-2 text-sm text-yellow-600 hover:text-yellow-700 font-semibold"
+                  >
+                    + 링크 추가 ({formData.websiteLinks.length}/3)
+                  </button>
+                )}
                 <p className="text-xs text-gray-500 mt-1">인스타그램, 카페, 홈페이지 등</p>
               </div>
 
@@ -444,7 +601,7 @@ export default function ShelterSignup({ setCurrentPage }) {
             </div>
 
             {/* 봉사 정보 */}
-            <div className="bg-green-50 rounded-xl p-6 space-y-4">
+            <div className="border-4 border-yellow-400 rounded-xl p-6 space-y-4">
               <h3 className="text-lg font-bold text-gray-800 mb-4">🤝 봉사 정보</h3>
 
               {/* 봉사 가능 요일 */}
