@@ -14,45 +14,47 @@ export default function ShelterMyPage() {
 
   return (
     <div className="min-h-screen bg-gray-50 flex">
-      {/* Sidebar - 왼쪽에 고정 */}
-      <div className="w-64 bg-white shadow-md p-6 flex-shrink-0">
-        <h2 className="text-xl font-bold text-gray-800 mb-6">마이페이지</h2>
-        <nav className="space-y-2">
-          <button
-            onClick={() => setActiveMenu('info')}
-            className={`w-full text-left px-4 py-3 rounded-lg transition-colors ${
-              activeMenu === 'info'
-                ? 'bg-red-50 text-red-500 font-semibold'
-                : 'text-gray-600 hover:bg-gray-50'
-            }`}
-          >
-            <span className="mr-2">👤</span> 내 정보
+      {/* Sidebar - 화면 제일 왼쪽에 고정 */}
+      <div className="w-64 bg-white shadow-md flex-shrink-0">
+        <div className="p-6">
+          <h2 className="text-xl font-bold text-gray-800 mb-6">마이페이지</h2>
+          <nav className="space-y-2">
+            <button
+              onClick={() => setActiveMenu('info')}
+              className={`w-full text-left px-4 py-3 rounded-lg transition-colors ${
+                activeMenu === 'info'
+                  ? 'bg-red-50 text-red-500 font-semibold'
+                  : 'text-gray-600 hover:bg-gray-50'
+              }`}
+            >
+              <span className="mr-2">👤</span> 내 정보
+            </button>
+            <button
+              onClick={() => setActiveMenu('shelter')}
+              className={`w-full text-left px-4 py-3 rounded-lg transition-colors ${
+                activeMenu === 'shelter'
+                  ? 'bg-red-50 text-red-500 font-semibold'
+                  : 'text-gray-600 hover:bg-gray-50'
+              }`}
+            >
+              <span className="mr-2">🏠</span> 보호소 정보
+            </button>
+            <button
+              onClick={() => setActiveMenu('volunteer-dashboard')}
+              className={`w-full text-left px-4 py-3 rounded-lg transition-colors ${
+                activeMenu === 'volunteer-dashboard'
+                  ? 'bg-red-50 text-red-500 font-semibold'
+                  : 'text-gray-600 hover:bg-gray-50'
+              }`}
+            >
+              <span className="mr-2">📊</span> 봉사 대시보드
+            </button>
+          </nav>
+          
+          <button className="w-full mt-8 px-4 py-3 text-left text-gray-500 hover:text-gray-700 transition-colors text-sm flex items-center gap-2">
+            <span>🚪</span> 로그아웃
           </button>
-          <button
-            onClick={() => setActiveMenu('shelter')}
-            className={`w-full text-left px-4 py-3 rounded-lg transition-colors ${
-              activeMenu === 'shelter'
-                ? 'bg-red-50 text-red-500 font-semibold'
-                : 'text-gray-600 hover:bg-gray-50'
-            }`}
-          >
-            <span className="mr-2">🏠</span> 보호소 정보
-          </button>
-          <button
-            onClick={() => setActiveMenu('volunteer-dashboard')}
-            className={`w-full text-left px-4 py-3 rounded-lg transition-colors ${
-              activeMenu === 'volunteer-dashboard'
-                ? 'bg-red-50 text-red-500 font-semibold'
-                : 'text-gray-600 hover:bg-gray-50'
-            }`}
-          >
-            <span className="mr-2">📊</span> 봉사 대시보드
-          </button>
-        </nav>
-        
-        <button className="w-full mt-8 px-4 py-3 text-left text-gray-500 hover:text-gray-700 transition-colors text-sm flex items-center gap-2">
-          <span>🚪</span> 로그아웃
-        </button>
+        </div>
       </div>
 
       {/* Main Content - 중앙에 넓게 */}
