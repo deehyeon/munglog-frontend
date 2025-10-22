@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-export default function VolunteerSignup({ setCurrentPage }) {
+export default function VolunteerSignup({ setCurrentPage, setIsLoggedIn, setUserType }) {
   const [formData, setFormData] = useState({
     email: '',
     emailDomain: 'custom',
@@ -52,6 +52,8 @@ export default function VolunteerSignup({ setCurrentPage }) {
 
   const handleSocialSignup = (provider) => {
     console.log(`${provider} 회원가입`);
+    setIsLoggedIn(true);
+    setUserType('volunteer');
     setCurrentPage('home');
   };
 
@@ -72,7 +74,11 @@ export default function VolunteerSignup({ setCurrentPage }) {
 
     console.log('회원가입 데이터:', formData, agreements);
     alert('회원가입이 완료되었습니다!');
-    setCurrentPage('login');
+    
+    // 회원가입 성공 시 자동 로그인
+    setIsLoggedIn(true);
+    setUserType('volunteer');
+    setCurrentPage('home');
   };
 
   return (
