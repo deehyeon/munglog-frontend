@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-export default function ShelterSignup({ setCurrentPage }) {
+export default function ShelterSignup({ setCurrentPage, setIsLoggedIn, setUserType }) {
   const [step, setStep] = useState(1); // 1: 기본 정보, 2: 보호소 정보
   
   const [formData, setFormData] = useState({
@@ -102,10 +102,9 @@ export default function ShelterSignup({ setCurrentPage }) {
 
   const handleSocialSignup = (provider) => {
     console.log(`${provider} 보호소 회원가입`);
-    // 소셜 로그인 후 자동으로 로그인 상태로 설정
-    localStorage.setItem('isLoggedIn', 'true');
-    localStorage.setItem('userType', 'shelter');
-    setCurrentPage('home');
+    // 소셜 로그인 후 2단계(보호소 정보 입력)로 이동
+    setStep(2);
+    window.scrollTo(0, 0);
   };
 
   const handleStep1Submit = (e) => {
@@ -152,6 +151,10 @@ export default function ShelterSignup({ setCurrentPage }) {
     localStorage.setItem('isLoggedIn', 'true');
     localStorage.setItem('userType', 'shelter');
     localStorage.setItem('userEmail', formData.email);
+    
+    // 부모 컴포넌트의 상태 업데이트
+    if (setIsLoggedIn) setIsLoggedIn(true);
+    if (setUserType) setUserType('shelter');
     
     alert('보호소 센터 회원가입이 완료되었습니다! 자동으로 로그인됩니다.');
     setCurrentPage('home');
@@ -561,13 +564,13 @@ export default function ShelterSignup({ setCurrentPage }) {
                   onClick={() => setStep(1)}
                   className="flex-1 py-4 border-2 border-gray-300 text-gray-700 rounded-lg font-bold text-lg hover:bg-gray-50 transition-colors"
                 >
-                  취소하기
+                  이전 단계로
                 </button>
                 <button 
                   type="submit" 
                   className="flex-1 py-4 bg-yellow-400 text-gray-800 rounded-lg font-bold text-lg hover:bg-yellow-500 transition-colors shadow-md"
                 >
-                  저장하기
+                  회원가입 완료
                 </button>
               </div>
             </form>
