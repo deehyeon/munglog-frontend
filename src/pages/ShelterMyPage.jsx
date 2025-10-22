@@ -13,70 +13,66 @@ export default function ShelterMyPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="max-w-6xl mx-auto py-8 px-4">
-        <div className="flex gap-8">
-          {/* Sidebar */}
-          <div className="w-64 bg-white rounded-2xl shadow-md p-6 h-fit">
-            <h2 className="text-xl font-bold text-gray-800 mb-6">마이페이지</h2>
-            <nav className="space-y-2">
-              <button
-                onClick={() => setActiveMenu('info')}
-                className={`w-full text-left px-4 py-3 rounded-lg transition-colors ${
-                  activeMenu === 'info'
-                    ? 'bg-red-50 text-red-500 font-semibold'
-                    : 'text-gray-600 hover:bg-gray-50'
-                }`}
-              >
-                <span className="mr-2">👤</span> 내 정보
-              </button>
-              <button
-                onClick={() => setActiveMenu('shelter')}
-                className={`w-full text-left px-4 py-3 rounded-lg transition-colors ${
-                  activeMenu === 'shelter'
-                    ? 'bg-red-50 text-red-500 font-semibold'
-                    : 'text-gray-600 hover:bg-gray-50'
-                }`}
-              >
-                <span className="mr-2">🏠</span> 보호소 정보
-              </button>
-              <button
-                onClick={() => setActiveMenu('volunteer-management')}
-                className={`w-full text-left px-4 py-3 rounded-lg transition-colors ${
-                  activeMenu === 'volunteer-management'
-                    ? 'bg-red-50 text-red-500 font-semibold'
-                    : 'text-gray-600 hover:bg-gray-50'
-                }`}
-              >
-                <span className="mr-2">📝</span> 봉사 신청 내역 관리
-              </button>
-            </nav>
-            
-            <button className="w-full mt-8 px-4 py-3 text-left text-gray-500 hover:text-gray-700 transition-colors text-sm flex items-center gap-2">
-              <span>🚪</span> 로그아웃
-            </button>
-          </div>
+    <div className="min-h-screen bg-gray-50 flex">
+      {/* Sidebar - 왼쪽에 고정 */}
+      <div className="w-64 bg-white shadow-md p-6 flex-shrink-0">
+        <h2 className="text-xl font-bold text-gray-800 mb-6">마이페이지</h2>
+        <nav className="space-y-2">
+          <button
+            onClick={() => setActiveMenu('info')}
+            className={`w-full text-left px-4 py-3 rounded-lg transition-colors ${
+              activeMenu === 'info'
+                ? 'bg-red-50 text-red-500 font-semibold'
+                : 'text-gray-600 hover:bg-gray-50'
+            }`}
+          >
+            <span className="mr-2">👤</span> 내 정보
+          </button>
+          <button
+            onClick={() => setActiveMenu('shelter')}
+            className={`w-full text-left px-4 py-3 rounded-lg transition-colors ${
+              activeMenu === 'shelter'
+                ? 'bg-red-50 text-red-500 font-semibold'
+                : 'text-gray-600 hover:bg-gray-50'
+            }`}
+          >
+            <span className="mr-2">🏠</span> 보호소 정보
+          </button>
+          <button
+            onClick={() => setActiveMenu('volunteer-dashboard')}
+            className={`w-full text-left px-4 py-3 rounded-lg transition-colors ${
+              activeMenu === 'volunteer-dashboard'
+                ? 'bg-red-50 text-red-500 font-semibold'
+                : 'text-gray-600 hover:bg-gray-50'
+            }`}
+          >
+            <span className="mr-2">📊</span> 봉사 대시보드
+          </button>
+        </nav>
+        
+        <button className="w-full mt-8 px-4 py-3 text-left text-gray-500 hover:text-gray-700 transition-colors text-sm flex items-center gap-2">
+          <span>🚪</span> 로그아웃
+        </button>
+      </div>
 
-          {/* Main Content */}
-          <div className="flex-1">
-            {activeMenu === 'info' && (
-              <MyInfo 
-                userData={userData}
-                setShowPasswordModal={setShowPasswordModal}
-                setShowPhoneModal={setShowPhoneModal}
-                setShowNameModal={setShowNameModal}
-              />
-            )}
+      {/* Main Content - 중앙에 넓게 */}
+      <div className="flex-1 py-8 px-12 max-w-7xl mx-auto">
+        {activeMenu === 'info' && (
+          <MyInfo 
+            userData={userData}
+            setShowPasswordModal={setShowPasswordModal}
+            setShowPhoneModal={setShowPhoneModal}
+            setShowNameModal={setShowNameModal}
+          />
+        )}
 
-            {activeMenu === 'shelter' && (
-              <ShelterInfo />
-            )}
+        {activeMenu === 'shelter' && (
+          <ShelterInfo />
+        )}
 
-            {activeMenu === 'volunteer-management' && (
-              <VolunteerManagement />
-            )}
-          </div>
-        </div>
+        {activeMenu === 'volunteer-dashboard' && (
+          <VolunteerDashboard />
+        )}
       </div>
 
       {/* Modals */}
@@ -255,19 +251,15 @@ function ShelterInfo() {
     const files = e.target.files;
     if (files && files.length > 0) {
       console.log('Photos uploaded:', files);
-      // 실제 업로드 로직 구현
     }
   };
 
-  // 수정 화면
   if (isEditMode) {
     return <ShelterInfoEdit onCancel={() => setIsEditMode(false)} onSave={() => setIsEditMode(false)} />;
   }
 
-  // 읽기 전용 화면
   return (
     <div className="bg-white rounded-2xl shadow-md p-8">
-      {/* 헤더 */}
       <div className="flex items-center justify-between mb-8">
         <h1 className="text-2xl font-bold text-gray-800">보호소 정보</h1>
         <button 
@@ -278,14 +270,11 @@ function ShelterInfo() {
         </button>
       </div>
 
-      {/* 보호소 기본 정보 */}
       <div className="flex gap-6 mb-6">
-        {/* 프로필 이미지 */}
         <div className="w-40 h-40 bg-orange-100 rounded-3xl flex items-center justify-center flex-shrink-0">
           <span className="text-7xl">🐶</span>
         </div>
 
-        {/* 정보 */}
         <div className="flex-1">
           <h2 className="text-2xl font-bold text-gray-800 mb-4">{shelterData.name}</h2>
           <div className="space-y-2 text-sm">
@@ -316,7 +305,6 @@ function ShelterInfo() {
         </div>
       </div>
 
-      {/* 운영 정보 - 회색 배경 박스 */}
       <div className="grid grid-cols-4 gap-3 mb-8">
         <div className="bg-gray-100 rounded-lg p-4 text-center">
           <p className="text-xs text-gray-500 mb-2">보호소 운영 오일 / 시간</p>
@@ -336,7 +324,6 @@ function ShelterInfo() {
         </div>
       </div>
 
-      {/* 보호소 소개 */}
       <div className="mb-8">
         <h3 className="text-lg font-bold text-gray-800 mb-4 underline">보호소 소개글</h3>
         <div className="text-sm text-gray-600 whitespace-pre-line leading-relaxed">
@@ -344,7 +331,6 @@ function ShelterInfo() {
         </div>
       </div>
 
-      {/* 지도 */}
       <div className="mb-8">
         <h3 className="text-base font-bold text-gray-800 mb-3">공공데이터: 충북 청주시 충대로1길 실태 주소</h3>
         <div className="w-full h-64 bg-gray-200 rounded-lg flex items-center justify-center">
@@ -352,7 +338,6 @@ function ShelterInfo() {
         </div>
       </div>
 
-      {/* 탭 */}
       <div className="flex gap-4 border-b mb-6">
         <button className="px-4 py-2 text-red-500 border-b-2 border-red-500 font-semibold">
           보호소 이미지
@@ -362,7 +347,6 @@ function ShelterInfo() {
         </button>
       </div>
 
-      {/* 보호소 사진 */}
       <div className="mb-8">
         <div className="flex items-center justify-between mb-4">
           <h3 className="text-lg font-bold text-gray-800">보호소 사진</h3>
@@ -395,7 +379,6 @@ function ShelterInfo() {
           ))}
         </div>
 
-        {/* 페이지네이션 */}
         <div className="flex items-center justify-center gap-2 mt-6">
           <button className="w-8 h-8 flex items-center justify-center text-gray-400 hover:text-gray-600">&lt;</button>
           <button className="w-8 h-8 flex items-center justify-center bg-orange-500 text-white rounded-full text-sm font-medium">1</button>
@@ -408,7 +391,6 @@ function ShelterInfo() {
         </div>
       </div>
 
-      {/* 강아지 사진 */}
       <div>
         <div className="flex items-center justify-between mb-4">
           <h3 className="text-lg font-bold text-gray-800">강아지 사진</h3>
@@ -437,7 +419,6 @@ function ShelterInfo() {
           ))}
         </div>
 
-        {/* 페이지네이션 */}
         <div className="flex items-center justify-center gap-2 mt-6">
           <button className="w-8 h-8 flex items-center justify-center text-gray-400 hover:text-gray-600">&lt;</button>
           <button className="w-8 h-8 flex items-center justify-center bg-orange-500 text-white rounded-full text-sm font-medium">1</button>
@@ -450,7 +431,6 @@ function ShelterInfo() {
         </div>
       </div>
 
-      {/* 강아지 프로필 모달 */}
       {showDogProfileModal && (
         <DogProfileModal 
           onClose={() => setShowDogProfileModal(false)}
@@ -661,12 +641,279 @@ function ShelterInfoEdit({ onCancel, onSave }) {
   );
 }
 
-// 봉사 신청 내역 관리 탭
-function VolunteerManagement() {
+// 봉사 대시보드 탭
+function VolunteerDashboard() {
+  const [currentDate, setCurrentDate] = useState(new Date(2025, 5, 1)); // 2025년 6월
+  const [showNewApplicationsModal, setShowNewApplicationsModal] = useState(false);
+
+  // 달력 생성
+  const getDaysInMonth = (date) => {
+    const year = date.getFullYear();
+    const month = date.getMonth();
+    const firstDay = new Date(year, month, 1);
+    const lastDay = new Date(year, month + 1, 0);
+    const daysInMonth = lastDay.getDate();
+    const startingDayOfWeek = firstDay.getDay();
+
+    const days = [];
+    
+    // 이전 달의 빈 칸
+    for (let i = 0; i < startingDayOfWeek; i++) {
+      days.push(null);
+    }
+    
+    // 현재 달의 날짜
+    for (let i = 1; i <= daysInMonth; i++) {
+      days.push(i);
+    }
+    
+    return days;
+  };
+
+  const days = getDaysInMonth(currentDate);
+  const monthNames = ['01월', '02월', '03월', '04월', '05월', '06월', '07월', '08월', '09월', '10월', '11월', '12월'];
+  const dayNames = ['일', '월', '화', '수', '목', '금', '토'];
+
+  // 봉사 예정일 (강아지 아이콘 표시)
+  const volunteerDays = [7, 14, 21, 28];
+
+  const prevMonth = () => {
+    setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, 1));
+  };
+
+  const nextMonth = () => {
+    setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1));
+  };
+
   return (
-    <div className="bg-white rounded-2xl shadow-md p-8">
-      <h1 className="text-2xl font-bold text-gray-800 mb-8">봉사 신청 내역 관리</h1>
-      <p className="text-gray-600">봉사 신청 내역 관리 화면입니다.</p>
+    <div>
+      <h1 className="text-2xl font-bold text-gray-800 mb-6">봉사 대시보드</h1>
+
+      {/* 달력 및 통계 */}
+      <div className="bg-gray-200 rounded-2xl p-6 mb-8">
+        <div className="flex gap-6">
+          {/* 달력 */}
+          <div className="bg-white rounded-xl p-6 flex-1">
+            {/* 달력 헤더 */}
+            <div className="flex items-center justify-between mb-6">
+              <button onClick={prevMonth} className="text-gray-400 hover:text-gray-600">
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                </svg>
+              </button>
+              <h2 className="text-lg font-bold text-gray-800">
+                {currentDate.getFullYear()}년 {monthNames[currentDate.getMonth()]}
+              </h2>
+              <button onClick={nextMonth} className="text-gray-400 hover:text-gray-600">
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </button>
+            </div>
+
+            {/* 요일 */}
+            <div className="grid grid-cols-7 gap-2 mb-2">
+              {dayNames.map((day, index) => (
+                <div key={index} className="text-center text-xs font-medium text-gray-500 py-2">
+                  {day}
+                </div>
+              ))}
+            </div>
+
+            {/* 날짜 */}
+            <div className="grid grid-cols-7 gap-2">
+              {days.map((day, index) => (
+                <div key={index} className="aspect-square flex items-center justify-center relative">
+                  {day && (
+                    <>
+                      <span className={`text-sm ${
+                        index % 7 === 0 ? 'text-red-500' : 
+                        index % 7 === 6 ? 'text-blue-500' : 
+                        'text-gray-800'
+                      }`}>
+                        {day}
+                      </span>
+                      {volunteerDays.includes(day) && (
+                        <span className="absolute bottom-0 text-xl">🐶</span>
+                      )}
+                    </>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* 통계 */}
+          <div className="w-64 space-y-4">
+            <div className="bg-white rounded-xl p-6 text-center cursor-pointer hover:shadow-lg transition-shadow" onClick={() => setShowNewApplicationsModal(true)}>
+              <p className="text-sm text-gray-600 mb-2">새로 들어온 봉사 신청 내역</p>
+              <p className="text-4xl font-bold text-gray-800">3건</p>
+            </div>
+            <div className="bg-white rounded-xl p-6 text-center">
+              <p className="text-sm text-gray-600 mb-2">이달의 봉사 갯수</p>
+              <p className="text-4xl font-bold text-gray-800">14건</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* 오늘의 봉사 목록 */}
+      <div className="mb-8">
+        <div className="flex items-center justify-between mb-4">
+          <h2 className="text-xl font-bold text-gray-800">오늘의 봉사 목록</h2>
+          <button className="text-orange-500 text-sm flex items-center gap-1 hover:text-orange-600">
+            <span>🔄</span> 로그보기
+          </button>
+        </div>
+
+        <div className="grid grid-cols-2 gap-4">
+          {Array.from({ length: 4 }).map((_, i) => (
+            <VolunteerCard key={i} />
+          ))}
+        </div>
+      </div>
+
+      {/* 예정된 봉사 목록 */}
+      <div>
+        <h2 className="text-xl font-bold text-gray-800 mb-4">예정된 봉사 목록</h2>
+
+        <div className="grid grid-cols-2 gap-4 mb-6">
+          {Array.from({ length: 8 }).map((_, i) => (
+            <VolunteerCard key={i} />
+          ))}
+        </div>
+
+        {/* 페이지네이션 */}
+        <div className="flex items-center justify-center gap-2">
+          <button className="w-8 h-8 flex items-center justify-center text-gray-400 hover:text-gray-600">&lt;</button>
+          <button className="w-8 h-8 flex items-center justify-center bg-orange-500 text-white rounded-full text-sm font-medium">1</button>
+          <button className="w-8 h-8 flex items-center justify-center text-gray-600 hover:bg-gray-100 rounded-full text-sm">2</button>
+          <button className="w-8 h-8 flex items-center justify-center text-gray-600 hover:bg-gray-100 rounded-full text-sm">3</button>
+          <button className="w-8 h-8 flex items-center justify-center text-gray-600 hover:bg-gray-100 rounded-full text-sm">4</button>
+          <button className="w-8 h-8 flex items-center justify-center text-gray-600 hover:bg-gray-100 rounded-full text-sm">5</button>
+          <span className="text-gray-400">...</span>
+          <button className="w-8 h-8 flex items-center justify-center text-gray-400 hover:text-gray-600">&gt;</button>
+        </div>
+      </div>
+
+      {/* 새로 들어온 봉사 신청 내역 모달 */}
+      {showNewApplicationsModal && (
+        <NewApplicationsModal onClose={() => setShowNewApplicationsModal(false)} />
+      )}
+    </div>
+  );
+}
+
+// 봉사 카드 컴포넌트
+function VolunteerCard() {
+  return (
+    <div className="bg-gray-100 rounded-xl p-6">
+      <div className="flex items-start justify-between">
+        <div className="flex-1">
+          <h3 className="text-lg font-bold text-gray-800 mb-3">닉네임</h3>
+          <div className="space-y-1 text-sm">
+            <div className="flex justify-between">
+              <span className="text-gray-600">봉사 횟수</span>
+              <span className="text-gray-800">7회</span>
+            </div>
+            <div className="flex justify-between">
+              <span className="text-gray-600">우리 보호소 방문 횟수</span>
+              <span className="text-gray-800">4회</span>
+            </div>
+          </div>
+        </div>
+
+        <div className="border-l border-gray-300 pl-6 ml-6 space-y-1 text-sm min-w-[120px]">
+          <div className="flex justify-between">
+            <span className="text-gray-600">봉사 날짜</span>
+            <span className="text-gray-800">1개월</span>
+          </div>
+          <div className="flex justify-between">
+            <span className="text-gray-600">봉사 시간</span>
+            <span className="text-gray-800">999+</span>
+          </div>
+          <div className="flex justify-between">
+            <span className="text-gray-600">봉사 인원수</span>
+            <span className="text-gray-800">999+</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// 새로 들어온 봉사 신청 내역 모달
+function NewApplicationsModal({ onClose }) {
+  return (
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+      <div className="bg-white rounded-2xl p-8 w-full max-w-2xl max-h-[90vh] overflow-y-auto">
+        <h2 className="text-2xl font-bold text-gray-800 mb-6">새로 들어온 봉사 신청 내역</h2>
+        
+        <div className="space-y-4 mb-6">
+          {Array.from({ length: 4 }).map((_, i) => (
+            <div key={i} className="bg-gray-100 rounded-xl p-6">
+              <div className="flex items-start justify-between">
+                <div className="flex-1">
+                  <h3 className="text-lg font-bold text-gray-800 mb-3">닉네임</h3>
+                  <div className="space-y-1 text-sm">
+                    <div className="flex justify-between">
+                      <span className="text-gray-600">봉사 횟수</span>
+                      <span className="text-gray-800">7회</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-gray-600">우리 보호소 방문 횟수</span>
+                      <span className="text-gray-800">4회</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="border-l border-gray-300 px-6 mx-6 space-y-1 text-sm min-w-[120px]">
+                  <div className="flex justify-between">
+                    <span className="text-gray-600">봉사 날짜</span>
+                    <span className="text-gray-800">1개월</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-600">봉사 시간</span>
+                    <span className="text-gray-800">999+</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-600">봉사 인원수</span>
+                    <span className="text-gray-800">999+</span>
+                  </div>
+                </div>
+
+                <div className="flex flex-col gap-2">
+                  <button className="px-4 py-2 bg-white border border-gray-300 rounded-lg text-gray-700 text-sm font-medium hover:bg-gray-50">
+                    승인하기
+                  </button>
+                  <button className="px-4 py-2 bg-white border border-gray-300 rounded-lg text-gray-700 text-sm font-medium hover:bg-gray-50">
+                    거절하기
+                  </button>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* 페이지네이션 */}
+        <div className="flex items-center justify-center gap-2 mb-6">
+          <button className="w-8 h-8 flex items-center justify-center text-gray-400 hover:text-gray-600">&lt;</button>
+          <button className="w-8 h-8 flex items-center justify-center bg-orange-500 text-white rounded-full text-sm font-medium">1</button>
+          <button className="w-8 h-8 flex items-center justify-center text-gray-600 hover:bg-gray-100 rounded-full text-sm">2</button>
+          <button className="w-8 h-8 flex items-center justify-center text-gray-600 hover:bg-gray-100 rounded-full text-sm">3</button>
+          <button className="w-8 h-8 flex items-center justify-center text-gray-600 hover:bg-gray-100 rounded-full text-sm">4</button>
+          <button className="w-8 h-8 flex items-center justify-center text-gray-600 hover:bg-gray-100 rounded-full text-sm">5</button>
+          <span className="text-gray-400">...</span>
+          <button className="w-8 h-8 flex items-center justify-center text-gray-400 hover:text-gray-600">&gt;</button>
+        </div>
+
+        <button
+          onClick={onClose}
+          className="w-full py-3 border border-gray-300 rounded-lg text-gray-700 text-sm font-medium hover:bg-gray-50"
+        >
+          닫기
+        </button>
+      </div>
     </div>
   );
 }
