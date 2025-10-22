@@ -13,7 +13,7 @@ export default function ShelterMyPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex">
+    <div className="min-h-screen bg-gray-50 flex -mx-6 -my-6">
       {/* Sidebar - 화면 제일 왼쪽에 고정 */}
       <div className="w-64 bg-white shadow-md flex-shrink-0">
         <div className="p-6">
