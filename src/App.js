@@ -11,6 +11,7 @@ import Signup from './pages/Signup';
 import VolunteerSignup from './pages/VolunteerSignup';
 import ShelterSignup from './pages/ShelterSignup';
 import VolunteerMyPage from './pages/VolunteerMyPage';
+import ShelterMyPage from './pages/ShelterMyPage';
 import MyPage from './pages/MyPage';
 
 export default function App() {
@@ -74,7 +75,8 @@ export default function App() {
         {currentPage === 'volunteer-signup' && <VolunteerSignup setCurrentPage={setCurrentPage} setIsLoggedIn={setIsLoggedIn} setUserType={setUserType} />}
         {currentPage === 'shelter-signup' && <ShelterSignup setCurrentPage={setCurrentPage} setIsLoggedIn={setIsLoggedIn} setUserType={setUserType} />}
         {currentPage === 'mypage' && userType === 'volunteer' && <VolunteerMyPage setCurrentPage={setCurrentPage} />}
-        {currentPage === 'mypage' && userType === 'shelter' && <MyPage setCurrentPage={setCurrentPage} />}
+        {currentPage === 'mypage' && userType === 'shelter' && <ShelterMyPage setCurrentPage={setCurrentPage} />}
+        {currentPage === 'mypage' && !userType && <MyPage setCurrentPage={setCurrentPage} />}
       </main>
 
       <Footer />
