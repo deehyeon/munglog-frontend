@@ -10,6 +10,8 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 import VolunteerSignup from './pages/VolunteerSignup';
 import ShelterSignup from './pages/ShelterSignup';
+import VolunteerMyPage from './pages/VolunteerMyPage';
+import MyPage from './pages/MyPage';
 
 export default function App() {
   const [currentPage, setCurrentPage] = useState('home');
@@ -17,6 +19,7 @@ export default function App() {
   const [isLocationModalOpen, setIsLocationModalOpen] = useState(false);
   const [likedItems, setLikedItems] = useState(new Set());
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userType, setUserType] = useState(null); // 'volunteer', 'shelter', null
 
   const toggleLike = (itemId) => {
     setLikedItems(prev => {
@@ -40,7 +43,9 @@ export default function App() {
     likedItems,
     toggleLike,
     isLoggedIn,
-    setIsLoggedIn
+    setIsLoggedIn,
+    userType,
+    setUserType
   };
 
   return (
@@ -49,6 +54,7 @@ export default function App() {
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
         isLoggedIn={isLoggedIn}
+        userType={userType}
       />
 
       <main className="max-w-7xl mx-auto p-6">
@@ -63,10 +69,12 @@ export default function App() {
         {currentPage === 'shelters' && <Shelters {...pageProps} />}
         {currentPage === 'missing' && <Missing {...pageProps} />}
         {currentPage === 'adoption' && <Adoption {...pageProps} />}
-        {currentPage === 'login' && <Login setCurrentPage={setCurrentPage} setIsLoggedIn={setIsLoggedIn} />}
+        {currentPage === 'login' && <Login setCurrentPage={setCurrentPage} setIsLoggedIn={setIsLoggedIn} setUserType={setUserType} />}
         {currentPage === 'signup' && <Signup setCurrentPage={setCurrentPage} />}
-        {currentPage === 'volunteer-signup' && <VolunteerSignup setCurrentPage={setCurrentPage} />}
-        {currentPage === 'shelter-signup' && <ShelterSignup setCurrentPage={setCurrentPage} />}
+        {currentPage === 'volunteer-signup' && <VolunteerSignup setCurrentPage={setCurrentPage} setIsLoggedIn={setIsLoggedIn} setUserType={setUserType} />}
+        {currentPage === 'shelter-signup' && <ShelterSignup setCurrentPage={setCurrentPage} setIsLoggedIn={setIsLoggedIn} setUserType={setUserType} />}
+        {currentPage === 'mypage' && userType === 'volunteer' && <VolunteerMyPage setCurrentPage={setCurrentPage} />}
+        {currentPage === 'mypage' && userType === 'shelter' && <MyPage setCurrentPage={setCurrentPage} />}
       </main>
 
       <Footer />

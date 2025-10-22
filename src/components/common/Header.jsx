@@ -3,7 +3,11 @@ import { Heart, Bell, User } from 'lucide-react';
 import DogLogo from './DogLogo';
 import { colors } from '../../constants/colors';
 
-const Header = ({ currentPage, setCurrentPage, isLoggedIn }) => {
+const Header = ({ currentPage, setCurrentPage, isLoggedIn, userType }) => {
+  const handleMyPageClick = () => {
+    setCurrentPage('mypage');
+  };
+
   return (
     <header className="bg-white border-b border-gray-200 sticky top-0 z-50 shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
@@ -51,7 +55,7 @@ const Header = ({ currentPage, setCurrentPage, isLoggedIn }) => {
             </nav>
           )}
         </div>
-        {currentPage !== 'signup' && currentPage !== 'login' && (
+        {currentPage !== 'signup' && currentPage !== 'login' && currentPage !== 'volunteer-signup' && currentPage !== 'shelter-signup' && (
           <div className="flex items-center gap-3">
             {isLoggedIn ? (
               <>
@@ -62,7 +66,10 @@ const Header = ({ currentPage, setCurrentPage, isLoggedIn }) => {
                   <Bell className="w-5 h-5 text-gray-700" />
                   <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
                 </button>
-                <button className="p-2 hover:bg-gray-100 rounded-full transition">
+                <button 
+                  onClick={handleMyPageClick}
+                  className="p-2 hover:bg-gray-100 rounded-full transition"
+                >
                   <User className="w-5 h-5 text-gray-700" />
                 </button>
               </>

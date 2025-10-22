@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-export default function Login({ setCurrentPage, setIsLoggedIn }) {
+export default function Login({ setCurrentPage, setIsLoggedIn, setUserType }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -9,6 +9,16 @@ export default function Login({ setCurrentPage, setIsLoggedIn }) {
     // TODO: 실제 로그인 로직 구현
     if (email && password) {
       setIsLoggedIn(true);
+      // 테스트를 위해 이메일로 사용자 타입 구분 (실제로는 서버에서 받아와야 함)
+      // volunteer로 테스트하려면 이메일에 'volunteer'를 포함
+      if (email.includes('volunteer')) {
+        setUserType('volunteer');
+      } else if (email.includes('shelter')) {
+        setUserType('shelter');
+      } else {
+        // 기본값은 봉사자로 설정
+        setUserType('volunteer');
+      }
       setCurrentPage('home');
     }
   };
@@ -17,6 +27,7 @@ export default function Login({ setCurrentPage, setIsLoggedIn }) {
     // TODO: SNS 로그인 로직 구현
     console.log(`${provider} 로그인`);
     setIsLoggedIn(true);
+    setUserType('volunteer'); // 기본값으로 봉사자 설정
     setCurrentPage('home');
   };
 
@@ -38,7 +49,7 @@ export default function Login({ setCurrentPage, setIsLoggedIn }) {
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="이메일"
+                placeholder="이메일 (테스트: volunteer@test.com)"
                 className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-yellow-400 transition-colors"
                 required
               />
