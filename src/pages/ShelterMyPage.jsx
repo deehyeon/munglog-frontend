@@ -38,27 +38,17 @@ export default function ShelterMyPage() {
                     : 'text-gray-600 hover:bg-gray-50'
                 }`}
               >
-                <span className="mr-2">🤝</span> 보호소 정보
+                <span className="mr-2">🏠</span> 보호소 정보
               </button>
               <button
-                onClick={() => setActiveMenu('dashboard')}
+                onClick={() => setActiveMenu('volunteer-management')}
                 className={`w-full text-left px-4 py-3 rounded-lg transition-colors ${
-                  activeMenu === 'dashboard'
+                  activeMenu === 'volunteer-management'
                     ? 'bg-red-50 text-red-500 font-semibold'
                     : 'text-gray-600 hover:bg-gray-50'
                 }`}
               >
-                <span className="mr-2">📝</span> 봉사 대시보드
-              </button>
-              <button
-                onClick={() => setActiveMenu('management')}
-                className={`w-full text-left px-4 py-3 rounded-lg transition-colors ${
-                  activeMenu === 'management'
-                    ? 'bg-red-50 text-red-500 font-semibold'
-                    : 'text-gray-600 hover:bg-gray-50'
-                }`}
-              >
-                <span className="mr-2">🐕</span> 등록한 보호소
+                <span className="mr-2">📝</span> 봉사 신청 내역 관리
               </button>
             </nav>
             
@@ -82,12 +72,8 @@ export default function ShelterMyPage() {
               <ShelterInfo />
             )}
 
-            {activeMenu === 'dashboard' && (
-              <VolunteerDashboard />
-            )}
-
-            {activeMenu === 'management' && (
-              <RegisteredShelters />
+            {activeMenu === 'volunteer-management' && (
+              <VolunteerManagement />
             )}
           </div>
         </div>
@@ -228,226 +214,34 @@ function MyInfo({ userData, setShowPasswordModal, setShowPhoneModal, setShowName
 // 보호소 정보 탭
 function ShelterInfo() {
   const [isEditMode, setIsEditMode] = useState(false);
-  const [formData, setFormData] = useState({
-    shelterName: '강남 보호소',
-    address: '경기도 수원시 영통구 매향로',
-    managerName: '홍길동',
-    websiteLinks: [''],
-    operatingStatus: '',
-    openingHours: '',
-    volunteerAvailable: '',
-    volunteerTime: '',
-    shelterArea: '',
-    description: ''
-  });
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
-  };
-
-  const handleSave = () => {
-    alert('보호소 정보가 저장되었습니다.');
-    setIsEditMode(false);
-  };
-
-  const handleCancel = () => {
-    setIsEditMode(false);
-  };
-
-  return (
-    <div className="bg-white rounded-2xl shadow-md p-8">
-      <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-bold text-gray-800">보호소 정보 수정</h1>
-      </div>
-
-      <div className="space-y-4">
-        <div>
-          <label className="block text-sm font-semibold text-gray-800 mb-2">
-            보호소 이름 <span className="text-red-500">*</span>
-          </label>
-          <input
-            type="text"
-            name="shelterName"
-            value={formData.shelterName}
-            onChange={handleInputChange}
-            placeholder="강남 보호소"
-            disabled={!isEditMode}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-yellow-400 text-sm disabled:bg-gray-50"
-          />
-        </div>
-
-        <div>
-          <label className="block text-sm font-semibold text-gray-800 mb-2">
-            보호소 주소 <span className="text-red-500">*</span>
-          </label>
-          <input
-            type="text"
-            name="address"
-            value={formData.address}
-            onChange={handleInputChange}
-            placeholder="경기도 수원시 영통구 매향로"
-            disabled={!isEditMode}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-yellow-400 text-sm disabled:bg-gray-50"
-          />
-        </div>
-
-        <div>
-          <label className="block text-sm font-semibold text-gray-800 mb-2">
-            담당자 이름 <span className="text-red-500">*</span>
-          </label>
-          <input
-            type="text"
-            name="managerName"
-            value={formData.managerName}
-            onChange={handleInputChange}
-            placeholder="홍길동"
-            disabled={!isEditMode}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-yellow-400 text-sm disabled:bg-gray-50"
-          />
-        </div>
-
-        <div>
-          <label className="block text-sm font-semibold text-gray-800 mb-2">
-            홈페이지/SNS 링크 <span className="text-red-500">*</span>
-          </label>
-          <input
-            type="text"
-            placeholder="보호소 이용을 알려주세요."
-            disabled={!isEditMode}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-yellow-400 text-sm disabled:bg-gray-50"
-          />
-          {isEditMode && (
-            <button className="mt-2 text-red-500 text-lg hover:text-red-600">
-              +
-            </button>
-          )}
-        </div>
-
-        <div>
-          <label className="block text-sm font-semibold text-gray-800 mb-2">
-            보호소 운영 여부 <span className="text-red-500">*</span>
-          </label>
-          <input
-            type="text"
-            name="operatingStatus"
-            value={formData.operatingStatus}
-            onChange={handleInputChange}
-            placeholder="소자만 입력해주세요."
-            disabled={!isEditMode}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-yellow-400 text-sm disabled:bg-gray-50"
-          />
-        </div>
-
-        <div>
-          <label className="block text-sm font-semibold text-gray-800 mb-2">
-            보호소 운영 시간 <span className="text-red-500">*</span>
-          </label>
-          <input
-            type="text"
-            name="openingHours"
-            value={formData.openingHours}
-            onChange={handleInputChange}
-            placeholder="소자만 입력해주세요."
-            disabled={!isEditMode}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-yellow-400 text-sm disabled:bg-gray-50"
-          />
-        </div>
-
-        <div>
-          <label className="block text-sm font-semibold text-gray-800 mb-2">
-            봉사 가능 여부 <span className="text-red-500">*</span>
-          </label>
-          <input
-            type="text"
-            name="volunteerAvailable"
-            value={formData.volunteerAvailable}
-            onChange={handleInputChange}
-            placeholder="소자만 입력해주세요."
-            disabled={!isEditMode}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-yellow-400 text-sm disabled:bg-gray-50"
-          />
-        </div>
-
-        <div>
-          <label className="block text-sm font-semibold text-gray-800 mb-2">
-            봉사 가능 시간 <span className="text-red-500">*</span>
-          </label>
-          <input
-            type="text"
-            name="volunteerTime"
-            value={formData.volunteerTime}
-            onChange={handleInputChange}
-            placeholder="소자만 입력해주세요."
-            disabled={!isEditMode}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-yellow-400 text-sm disabled:bg-gray-50"
-          />
-        </div>
-
-        <div>
-          <label className="block text-sm font-semibold text-gray-800 mb-2">
-            보호소 면적 <span className="text-red-500">*</span>
-          </label>
-          <input
-            type="text"
-            name="shelterArea"
-            value={formData.shelterArea}
-            onChange={handleInputChange}
-            placeholder="소자만 입력해주세요."
-            disabled={!isEditMode}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-yellow-400 text-sm disabled:bg-gray-50"
-          />
-        </div>
-
-        <div>
-          <label className="block text-sm font-semibold text-gray-800 mb-2">
-            보호소 상세 설명 <span className="text-red-500">*</span>
-          </label>
-          <textarea
-            name="description"
-            value={formData.description}
-            onChange={handleInputChange}
-            placeholder="보호소 상세 설명을 입력해주세요."
-            disabled={!isEditMode}
-            rows="5"
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-yellow-400 text-sm disabled:bg-gray-50 resize-none"
-          />
-        </div>
-      </div>
-
-      <div className="flex gap-3 mt-6">
-        {isEditMode ? (
-          <>
-            <button 
-              onClick={handleCancel}
-              className="flex-1 py-3 border border-gray-300 rounded-lg text-gray-700 text-sm font-medium hover:bg-gray-50"
-            >
-              취소하기
-            </button>
-            <button 
-              onClick={handleSave}
-              className="flex-1 py-3 bg-yellow-400 hover:bg-yellow-500 text-gray-800 rounded-lg text-sm font-bold transition-colors"
-            >
-              저장하기
-            </button>
-          </>
-        ) : (
-          <button 
-            onClick={() => setIsEditMode(true)}
-            className="flex-1 py-3 bg-yellow-400 hover:bg-yellow-500 text-gray-800 rounded-lg text-sm font-bold transition-colors"
-          >
-            수정하기
-          </button>
-        )}
-      </div>
-    </div>
-  );
-}
-
-// 등록한 보호소 탭 (보호소 사진 + 강아지 사진)
-function RegisteredShelters() {
   const [showDogProfileModal, setShowDogProfileModal] = useState(false);
   const [editingDog, setEditingDog] = useState(null);
+  const [showPhotoUpload, setShowPhotoUpload] = useState(false);
+
+  const [shelterData] = useState({
+    name: '강남 보호소',
+    breed: '종: 홍길동',
+    managerEmail: 'ukaulaularu@naver.com',
+    managerPhone: '010-0000-0000',
+    url1: '인스타그램 URL',
+    url2: '블로그 URL',
+    openingHours: '09:00 - 18:00',
+    volunteerDay: '매 3째주',
+    capacity: '200건',
+    staff: '10명',
+    description: `고수님은 능가 빙 현저 하였으며, 품에 웃 것은 쓸쓸하랴 쓸쓸하랴...[생략]
+
+고수님은 우니의 할 가기 사랑의 새 가지에 하여도 산 쓸쓸하랴 것이다.
+기름 아니한 우는 끓는 옷을 것은 위하여서, 것은 보라, 거기도 쓸쓸한 아름다우나.
+
+고수님은 우니의 할 가기 사랑의 새 가지에 하여도 산 쓸쓸하랴 것이다.
+기름 아니한 우는 끓는 옷을 것은 위하여서, 것은 보라, 거기도 쓸쓸한 아름다우나.
+
+납의 원뜨로 가기의 것은 얼마나 뜨이는 밑이 없어도 아는 인간만의 것은 크다도
+몇이 야자의 자신 같이 인간이 생병을 위해서나다.
+
+몸도한이 자신과 구력로서 별태를서뿐이다. 날은 평일일 디뎌지다니 모내에터서있는 그들에게 약자를 야속도록한는다.`
+  });
 
   const handleAddDog = () => {
     setEditingDog(null);
@@ -459,15 +253,128 @@ function RegisteredShelters() {
     setShowDogProfileModal(true);
   };
 
+  const handlePhotoUpload = (e) => {
+    const files = e.target.files;
+    if (files && files.length > 0) {
+      console.log('Photos uploaded:', files);
+      // 실제 업로드 로직 구현
+    }
+  };
+
+  // 수정 화면
+  if (isEditMode) {
+    return <ShelterInfoEdit onCancel={() => setIsEditMode(false)} onSave={() => setIsEditMode(false)} />;
+  }
+
+  // 읽기 전용 화면
   return (
-    <div className="space-y-6">
+    <div className="bg-white rounded-2xl shadow-md p-8">
+      {/* 헤더 */}
+      <div className="flex items-center justify-between mb-8">
+        <h1 className="text-2xl font-bold text-gray-800">보호소 정보</h1>
+        <button 
+          onClick={() => setIsEditMode(true)}
+          className="px-6 py-2 bg-yellow-400 hover:bg-yellow-500 text-gray-800 font-bold rounded-lg transition-colors text-sm"
+        >
+          수정하기
+        </button>
+      </div>
+
+      {/* 보호소 기본 정보 */}
+      <div className="flex gap-6 mb-8">
+        {/* 프로필 이미지 */}
+        <div className="w-32 h-32 bg-orange-100 rounded-full flex items-center justify-center flex-shrink-0">
+          <span className="text-6xl">🐶</span>
+        </div>
+
+        {/* 정보 */}
+        <div className="flex-1">
+          <h2 className="text-xl font-bold text-gray-800 mb-3">{shelterData.name}</h2>
+          <div className="grid grid-cols-2 gap-x-8 gap-y-2 text-sm">
+            <div className="flex justify-between">
+              <span className="text-gray-600">종:</span>
+              <span className="text-gray-800">{shelterData.breed}</span>
+            </div>
+            <div className="flex justify-between">
+              <span className="text-gray-600">담당자 이메일:</span>
+              <span className="text-gray-800">{shelterData.managerEmail}</span>
+            </div>
+            <div className="flex justify-between">
+              <span className="text-gray-600">담당자 전화번호:</span>
+              <span className="text-gray-800">{shelterData.managerPhone}</span>
+            </div>
+            <div className="flex justify-between">
+              <span className="text-gray-600">URL:</span>
+              <span className="text-blue-600">{shelterData.url1}</span>
+            </div>
+            <div className="flex justify-between col-start-2">
+              <span className="text-gray-600">URL:</span>
+              <span className="text-blue-600">{shelterData.url2}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* 운영 정보 */}
+      <div className="grid grid-cols-4 gap-4 mb-8 text-center">
+        <div>
+          <p className="text-xs text-gray-500 mb-1">보호소 운영 시간 / 시간</p>
+          <p className="font-bold text-gray-800">{shelterData.openingHours}</p>
+        </div>
+        <div>
+          <p className="text-xs text-gray-500 mb-1">봉사 가능 날짜 / 시간</p>
+          <p className="font-bold text-gray-800">{shelterData.volunteerDay}</p>
+        </div>
+        <div>
+          <p className="text-xs text-gray-500 mb-1">보호소 면적 수용</p>
+          <p className="font-bold text-gray-800">{shelterData.capacity}</p>
+        </div>
+        <div>
+          <p className="text-xs text-gray-500 mb-1">인원</p>
+          <p className="font-bold text-gray-800">{shelterData.staff}</p>
+        </div>
+      </div>
+
+      {/* 보호소 소개 */}
+      <div className="mb-8">
+        <h3 className="text-lg font-bold text-gray-800 mb-3">보호소 소개글</h3>
+        <div className="text-sm text-gray-600 whitespace-pre-line leading-relaxed">
+          {shelterData.description}
+        </div>
+      </div>
+
+      {/* 지도 */}
+      <div className="mb-8">
+        <h3 className="text-lg font-bold text-gray-800 mb-3">공공데이터: 출퇴 성싱사 동물판매업 등록 수수</h3>
+        <div className="w-full h-64 bg-gray-200 rounded-lg flex items-center justify-center">
+          <span className="text-gray-400">지도 영역</span>
+        </div>
+      </div>
+
+      {/* 탭 */}
+      <div className="flex gap-4 border-b mb-6">
+        <button className="px-4 py-2 text-red-500 border-b-2 border-red-500 font-semibold">
+          보호소 이미지
+        </button>
+        <button className="px-4 py-2 text-gray-500 hover:text-gray-700">
+          리뷰 (2)
+        </button>
+      </div>
+
       {/* 보호소 사진 */}
-      <div className="bg-white rounded-2xl shadow-md p-8">
-        <div className="flex items-center justify-between mb-6">
-          <h2 className="text-xl font-bold text-gray-800">보호소 사진</h2>
-          <button className="px-4 py-2 bg-yellow-400 hover:bg-yellow-500 text-gray-800 font-bold rounded-lg transition-colors text-sm">
-            수정하기
-          </button>
+      <div className="mb-8">
+        <div className="flex items-center justify-between mb-4">
+          <h3 className="text-lg font-bold text-gray-800">보호소 사진</h3>
+          <label className="px-4 py-2 bg-yellow-400 hover:bg-yellow-500 text-gray-800 font-bold rounded-lg transition-colors text-sm cursor-pointer">
+            추가하기
+            <input 
+              type="file" 
+              multiple 
+              accept="image/*" 
+              className="hidden"
+              onChange={handlePhotoUpload}
+            />
+          </label>
         </div>
 
         <div className="grid grid-cols-4 gap-4">
@@ -486,17 +393,29 @@ function RegisteredShelters() {
             </div>
           ))}
         </div>
+
+        {/* 페이지네이션 */}
+        <div className="flex items-center justify-center gap-2 mt-6">
+          <button className="w-8 h-8 flex items-center justify-center text-gray-400 hover:text-gray-600">&lt;</button>
+          <button className="w-8 h-8 flex items-center justify-center bg-orange-500 text-white rounded-full text-sm font-medium">1</button>
+          <button className="w-8 h-8 flex items-center justify-center text-gray-600 hover:bg-gray-100 rounded-full text-sm">2</button>
+          <button className="w-8 h-8 flex items-center justify-center text-gray-600 hover:bg-gray-100 rounded-full text-sm">3</button>
+          <button className="w-8 h-8 flex items-center justify-center text-gray-600 hover:bg-gray-100 rounded-full text-sm">4</button>
+          <button className="w-8 h-8 flex items-center justify-center text-gray-600 hover:bg-gray-100 rounded-full text-sm">5</button>
+          <span className="text-gray-400">...</span>
+          <button className="w-8 h-8 flex items-center justify-center text-gray-400 hover:text-gray-600">&gt;</button>
+        </div>
       </div>
 
       {/* 강아지 사진 */}
-      <div className="bg-white rounded-2xl shadow-md p-8">
-        <div className="flex items-center justify-between mb-6">
-          <h2 className="text-xl font-bold text-gray-800">강아지 사진</h2>
+      <div>
+        <div className="flex items-center justify-between mb-4">
+          <h3 className="text-lg font-bold text-gray-800">강아지 사진</h3>
           <button 
             onClick={handleAddDog}
             className="px-4 py-2 bg-yellow-400 hover:bg-yellow-500 text-gray-800 font-bold rounded-lg transition-colors text-sm"
           >
-            등록하기
+            추가하기
           </button>
         </div>
 
@@ -505,12 +424,12 @@ function RegisteredShelters() {
             <button
               key={i}
               onClick={() => handleEditDog({ id: i, name: '강아지 이름', breed: '종', ageStatus: '나이 / 상태' })}
-              className="border border-yellow-300 rounded-lg p-4 hover:shadow-lg transition-shadow"
+              className="border border-yellow-300 rounded-lg p-4 hover:shadow-lg transition-shadow text-left"
             >
               <div className="aspect-square bg-gray-100 rounded-lg flex items-center justify-center mb-3">
                 <span className="text-6xl">🐶</span>
               </div>
-              <h3 className="font-bold text-gray-800 text-sm mb-1">강아지 이름</h3>
+              <h4 className="font-bold text-gray-800 text-sm mb-1">강아지 이름</h4>
               <p className="text-xs text-gray-500">종</p>
               <p className="text-xs text-gray-500">나이 / 상태</p>
             </button>
@@ -519,21 +438,18 @@ function RegisteredShelters() {
 
         {/* 페이지네이션 */}
         <div className="flex items-center justify-center gap-2 mt-6">
-          <button className="w-8 h-8 flex items-center justify-center text-gray-400 hover:text-gray-600">
-            &lt;
-          </button>
+          <button className="w-8 h-8 flex items-center justify-center text-gray-400 hover:text-gray-600">&lt;</button>
           <button className="w-8 h-8 flex items-center justify-center bg-orange-500 text-white rounded-full text-sm font-medium">1</button>
           <button className="w-8 h-8 flex items-center justify-center text-gray-600 hover:bg-gray-100 rounded-full text-sm">2</button>
           <button className="w-8 h-8 flex items-center justify-center text-gray-600 hover:bg-gray-100 rounded-full text-sm">3</button>
           <button className="w-8 h-8 flex items-center justify-center text-gray-600 hover:bg-gray-100 rounded-full text-sm">4</button>
           <button className="w-8 h-8 flex items-center justify-center text-gray-600 hover:bg-gray-100 rounded-full text-sm">5</button>
           <span className="text-gray-400">...</span>
-          <button className="w-8 h-8 flex items-center justify-center text-gray-400 hover:text-gray-600">
-            &gt;
-          </button>
+          <button className="w-8 h-8 flex items-center justify-center text-gray-400 hover:text-gray-600">&gt;</button>
         </div>
       </div>
 
+      {/* 강아지 프로필 모달 */}
       {showDogProfileModal && (
         <DogProfileModal 
           onClose={() => setShowDogProfileModal(false)}
@@ -545,219 +461,218 @@ function RegisteredShelters() {
   );
 }
 
-// 봉사 대시보드 탭
-function VolunteerDashboard() {
-  const [currentMonth, setCurrentMonth] = useState(new Date(2025, 5)); // 2025년 6월
-  const [showApplicationModal, setShowApplicationModal] = useState(false);
+// 보호소 정보 수정 화면
+function ShelterInfoEdit({ onCancel, onSave }) {
+  const [formData, setFormData] = useState({
+    shelterName: '강남 보호소',
+    address: '경기도 수원시 영통구 매향로',
+    managerName: '홍길동',
+    managerEmail: 'ukaulaularu@naver.com',
+    managerPhone: '010-0000-0000',
+    websiteLinks: ['인스타그램 URL', '블로그 URL'],
+    operatingStatus: '',
+    openingHours: '09:00 - 18:00',
+    volunteerAvailable: '',
+    volunteerDay: '매 3째주',
+    shelterArea: '200건',
+    staff: '10명',
+    description: ''
+  });
 
-  const daysInMonth = new Date(
-    currentMonth.getFullYear(),
-    currentMonth.getMonth() + 1,
-    0
-  ).getDate();
-
-  const firstDayOfMonth = new Date(
-    currentMonth.getFullYear(),
-    currentMonth.getMonth(),
-    1
-  ).getDay();
-
-  // 월요일을 0으로 하기 위해 조정
-  const adjustedFirstDay = firstDayOfMonth === 0 ? 6 : firstDayOfMonth - 1;
-
-  const volunteeredDays = [8, 15, 20, 27]; // 봉사 예정 날짜
-
-  const prevMonth = () => {
-    setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() - 1));
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const nextMonth = () => {
-    setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1));
+  const handleSave = () => {
+    alert('보호소 정보가 저장되었습니다.');
+    onSave();
   };
 
   return (
     <div className="bg-white rounded-2xl shadow-md p-8">
-      <h1 className="text-2xl font-bold text-gray-800 mb-8">봉사 대시보드</h1>
+      <h1 className="text-2xl font-bold text-gray-800 mb-8">보호소 정보 수정</h1>
 
-      {/* 캘린더와 통계 */}
-      <div className="bg-gray-100 rounded-2xl p-6 mb-8">
-        <div className="flex gap-6">
-          {/* 캘린더 */}
-          <div className="flex-1 bg-white rounded-xl p-6">
-            <div className="flex items-center justify-between mb-6">
-              <button
-                onClick={prevMonth}
-                className="p-2 hover:bg-gray-100 rounded"
-              >
-                &lt;
-              </button>
-              <h2 className="text-lg font-bold">
-                {currentMonth.getFullYear()}년 {String(currentMonth.getMonth() + 1).padStart(2, '0')}월
-              </h2>
-              <button
-                onClick={nextMonth}
-                className="p-2 hover:bg-gray-100 rounded"
-              >
-                &gt;
-              </button>
-            </div>
-
-            {/* 요일 */}
-            <div className="grid grid-cols-7 gap-2 mb-2">
-              {['월', '화', '수', '목', '금', '토', '일'].map((day, idx) => (
-                <div 
-                  key={day} 
-                  className={`text-center text-xs font-semibold py-2 ${
-                    idx === 0 ? 'text-red-500' : idx === 6 ? 'text-blue-500' : 'text-gray-600'
-                  }`}
-                >
-                  {day}
-                </div>
-              ))}
-            </div>
-
-            {/* 날짜 */}
-            <div className="grid grid-cols-7 gap-2">
-              {Array.from({ length: adjustedFirstDay }).map((_, i) => (
-                <div key={`empty-${i}`} className="aspect-square" />
-              ))}
-              {Array.from({ length: daysInMonth }).map((_, i) => {
-                const day = i + 1;
-                const isVolunteered = volunteeredDays.includes(day);
-                const dayOfWeek = (adjustedFirstDay + i) % 7;
-                
-                return (
-                  <button
-                    key={day}
-                    className={`aspect-square flex items-center justify-center rounded-lg text-xs font-medium relative ${
-                      isVolunteered
-                        ? 'bg-blue-50'
-                        : 'hover:bg-gray-50'
-                    } ${
-                      dayOfWeek === 0 ? 'text-red-500' : dayOfWeek === 6 ? 'text-blue-500' : 'text-gray-700'
-                    }`}
-                  >
-                    {day}
-                    {isVolunteered && (
-                      <div className="absolute bottom-0 right-0 text-base">🐕</div>
-                    )}
-                  </button>
-                );
-              })}
-            </div>
-          </div>
-
-          {/* 통계 */}
-          <div className="w-64 space-y-4">
-            <div className="bg-white rounded-xl p-4 text-center">
-              <p className="text-sm text-gray-600 mb-2">새로 들어온 봉사 신청 내역</p>
-              <p className="text-3xl font-bold text-gray-800 mb-3">3건</p>
-              <button 
-                onClick={() => setShowApplicationModal(true)}
-                className="w-full py-2 bg-white border border-gray-300 rounded-lg text-gray-700 text-sm font-medium hover:bg-gray-50"
-              >
-                승인하기
-              </button>
-            </div>
-            <div className="bg-white rounded-xl p-4 text-center">
-              <p className="text-sm text-gray-600 mb-2">이달의 봉사 갯수</p>
-              <p className="text-3xl font-bold text-gray-800 mb-3">14건</p>
-              <button className="w-full py-2 bg-gray-300 text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-400">
-                거절하기
-              </button>
-            </div>
-          </div>
+      <div className="space-y-4">
+        <div>
+          <label className="block text-sm font-semibold text-gray-800 mb-2">
+            보호소 이름 <span className="text-red-500">*</span>
+          </label>
+          <input
+            type="text"
+            name="shelterName"
+            value={formData.shelterName}
+            onChange={handleInputChange}
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-yellow-400 text-sm"
+          />
         </div>
-      </div>
 
-      {/* 오늘의 봉사 목록 */}
-      <div className="mb-8">
-        <div className="flex items-center gap-2 mb-4">
-          <span className="text-xs text-gray-500">로그아웃</span>
-          <h2 className="text-xl font-bold text-gray-800">오늘의 봉사 목록</h2>
+        <div>
+          <label className="block text-sm font-semibold text-gray-800 mb-2">
+            보호소 주소 <span className="text-red-500">*</span>
+          </label>
+          <input
+            type="text"
+            name="address"
+            value={formData.address}
+            onChange={handleInputChange}
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-yellow-400 text-sm"
+          />
         </div>
-        <div className="grid grid-cols-2 gap-4">
-          {Array.from({ length: 4 }).map((_, i) => (
-            <VolunteerCard key={i} type="today" />
+
+        <div>
+          <label className="block text-sm font-semibold text-gray-800 mb-2">
+            담당자 이름 <span className="text-red-500">*</span>
+          </label>
+          <input
+            type="text"
+            name="managerName"
+            value={formData.managerName}
+            onChange={handleInputChange}
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-yellow-400 text-sm"
+          />
+        </div>
+
+        <div>
+          <label className="block text-sm font-semibold text-gray-800 mb-2">
+            담당자 이메일 <span className="text-red-500">*</span>
+          </label>
+          <input
+            type="email"
+            name="managerEmail"
+            value={formData.managerEmail}
+            onChange={handleInputChange}
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-yellow-400 text-sm"
+          />
+        </div>
+
+        <div>
+          <label className="block text-sm font-semibold text-gray-800 mb-2">
+            담당자 전화번호 <span className="text-red-500">*</span>
+          </label>
+          <input
+            type="tel"
+            name="managerPhone"
+            value={formData.managerPhone}
+            onChange={handleInputChange}
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-yellow-400 text-sm"
+          />
+        </div>
+
+        <div>
+          <label className="block text-sm font-semibold text-gray-800 mb-2">
+            홈페이지/SNS 링크
+          </label>
+          {formData.websiteLinks.map((link, index) => (
+            <input
+              key={index}
+              type="url"
+              value={link}
+              onChange={(e) => {
+                const newLinks = [...formData.websiteLinks];
+                newLinks[index] = e.target.value;
+                setFormData(prev => ({ ...prev, websiteLinks: newLinks }));
+              }}
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-yellow-400 text-sm mb-2"
+            />
           ))}
         </div>
-      </div>
 
-      {/* 예정된 봉사 목록 */}
-      <div>
-        <h2 className="text-xl font-bold text-gray-800 mb-4">예정된 봉사 목록</h2>
-        <div className="grid grid-cols-2 gap-4">
-          {Array.from({ length: 8 }).map((_, i) => (
-            <VolunteerCard key={i} type="scheduled" />
-          ))}
+        <div>
+          <label className="block text-sm font-semibold text-gray-800 mb-2">
+            보호소 운영 시간
+          </label>
+          <input
+            type="text"
+            name="openingHours"
+            value={formData.openingHours}
+            onChange={handleInputChange}
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-yellow-400 text-sm"
+          />
+        </div>
+
+        <div>
+          <label className="block text-sm font-semibold text-gray-800 mb-2">
+            봉사 가능 날짜
+          </label>
+          <input
+            type="text"
+            name="volunteerDay"
+            value={formData.volunteerDay}
+            onChange={handleInputChange}
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-yellow-400 text-sm"
+          />
+        </div>
+
+        <div>
+          <label className="block text-sm font-semibold text-gray-800 mb-2">
+            보호소 면적
+          </label>
+          <input
+            type="text"
+            name="shelterArea"
+            value={formData.shelterArea}
+            onChange={handleInputChange}
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-yellow-400 text-sm"
+          />
+        </div>
+
+        <div>
+          <label className="block text-sm font-semibold text-gray-800 mb-2">
+            인원
+          </label>
+          <input
+            type="text"
+            name="staff"
+            value={formData.staff}
+            onChange={handleInputChange}
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-yellow-400 text-sm"
+          />
+        </div>
+
+        <div>
+          <label className="block text-sm font-semibold text-gray-800 mb-2">
+            보호소 상세 설명
+          </label>
+          <textarea
+            name="description"
+            value={formData.description}
+            onChange={handleInputChange}
+            rows="8"
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-yellow-400 text-sm resize-none"
+          />
         </div>
       </div>
 
-      {/* 페이지네이션 */}
-      <div className="flex items-center justify-center gap-2 mt-8">
-        <button className="w-8 h-8 flex items-center justify-center text-gray-400 hover:text-gray-600">
-          &lt;
+      <div className="flex gap-3 mt-8">
+        <button 
+          onClick={onCancel}
+          className="flex-1 py-3 border border-gray-300 rounded-lg text-gray-700 text-sm font-medium hover:bg-gray-50"
+        >
+          취소하기
         </button>
-        <button className="w-8 h-8 flex items-center justify-center bg-orange-500 text-white rounded-full text-sm font-medium">1</button>
-        <button className="w-8 h-8 flex items-center justify-center text-gray-600 hover:bg-gray-100 rounded-full text-sm">2</button>
-        <button className="w-8 h-8 flex items-center justify-center text-gray-600 hover:bg-gray-100 rounded-full text-sm">3</button>
-        <button className="w-8 h-8 flex items-center justify-center text-gray-600 hover:bg-gray-100 rounded-full text-sm">4</button>
-        <button className="w-8 h-8 flex items-center justify-center text-gray-600 hover:bg-gray-100 rounded-full text-sm">5</button>
-        <span className="text-gray-400">...</span>
-        <button className="w-8 h-8 flex items-center justify-center text-gray-400 hover:text-gray-600">
-          &gt;
+        <button 
+          onClick={handleSave}
+          className="flex-1 py-3 bg-yellow-400 hover:bg-yellow-500 text-gray-800 rounded-lg text-sm font-bold transition-colors"
+        >
+          저장하기
         </button>
       </div>
-
-      {showApplicationModal && (
-        <VolunteerApplicationModal onClose={() => setShowApplicationModal(false)} />
-      )}
     </div>
   );
 }
 
-// 봉사 카드 컴포넌트
-function VolunteerCard({ type }) {
+// 봉사 신청 내역 관리 탭
+function VolunteerManagement() {
   return (
-    <div className="bg-gray-100 rounded-xl p-6">
-      <div className="mb-4">
-        <h3 className="font-bold text-gray-800 mb-2">너네임</h3>
-        <div className="space-y-1 text-sm text-gray-600">
-          <div className="flex justify-between">
-            <span>봉사 회수</span>
-            <span>7회</span>
-            <span className="ml-4">봉사 날짜</span>
-            <span>1회월</span>
-          </div>
-          <div className="flex justify-between">
-            <span>봉사 시간</span>
-            <span>999+</span>
-            <span className="ml-4">봉사 시간</span>
-            <span>999+</span>
-          </div>
-          <div className="flex justify-between">
-            <span>우리 보호소 방문 회수</span>
-            <span>4회</span>
-            <span className="ml-4">봉사 인원수</span>
-            <span>999+</span>
-          </div>
-        </div>
-      </div>
-
-      <div className="flex gap-2">
-        <button className="flex-1 py-2 bg-white border border-gray-300 rounded-lg text-gray-700 text-sm font-medium hover:bg-gray-50">
-          승인하기
-        </button>
-        <button className="flex-1 py-2 bg-gray-300 text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-400">
-          거절하기
-        </button>
-      </div>
+    <div className="bg-white rounded-2xl shadow-md p-8">
+      <h1 className="text-2xl font-bold text-gray-800 mb-8">봉사 신청 내역 관리</h1>
+      <p className="text-gray-600">봉사 신청 내역 관리 화면입니다.</p>
     </div>
   );
 }
 
 // 모달들
-
 function PasswordChangeModal({ onClose }) {
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
@@ -925,6 +840,13 @@ function DogProfileModal({ onClose, isEdit, dogData }) {
     onClose();
   };
 
+  const handleDelete = () => {
+    if (window.confirm('강아지 프로필을 삭제하시겠습니까?')) {
+      alert('강아지 프로필이 삭제되었습니다.');
+      onClose();
+    }
+  };
+
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
       <div className="bg-white rounded-2xl p-8 w-full max-w-md max-h-[90vh] overflow-y-auto">
@@ -1026,7 +948,7 @@ function DogProfileModal({ onClose, isEdit, dogData }) {
 
         <div className="flex gap-3 mt-6">
           <button
-            onClick={onClose}
+            onClick={isEdit ? handleDelete : onClose}
             className="flex-1 py-3 border border-gray-300 rounded-lg text-gray-700 text-sm font-medium hover:bg-gray-50"
           >
             {isEdit ? '삭제하기' : '닫기'}
@@ -1035,79 +957,9 @@ function DogProfileModal({ onClose, isEdit, dogData }) {
             onClick={handleSubmit}
             className="flex-1 py-3 bg-yellow-400 hover:bg-yellow-500 text-gray-800 rounded-lg text-sm font-bold transition-colors"
           >
-            {isEdit ? '저장하기' : '저장하기'}
+            저장하기
           </button>
         </div>
-      </div>
-    </div>
-  );
-}
-
-function VolunteerApplicationModal({ onClose }) {
-  return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-      <div className="bg-white rounded-2xl p-8 w-full max-w-xl max-h-[90vh] overflow-y-auto">
-        <h2 className="text-xl font-bold text-gray-800 mb-6">새로 들어온 봉사 신청 내역</h2>
-        
-        <div className="space-y-6">
-          {Array.from({ length: 4 }).map((_, i) => (
-            <div key={i} className="bg-gray-50 rounded-xl p-6">
-              <div className="mb-4">
-                <h3 className="font-bold text-gray-800 mb-3">너네임</h3>
-                <div className="space-y-1 text-sm text-gray-600">
-                  <div className="flex justify-between">
-                    <span>봉사 회수</span>
-                    <span>7회</span>
-                    <span className="ml-8">봉사 날짜</span>
-                    <span>1회월</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span>봉사 시간</span>
-                    <span>999+</span>
-                    <span className="ml-8">봉사 인원수</span>
-                    <span>999+</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span>우리 보호소 방문 회수</span>
-                    <span>4회</span>
-                  </div>
-                </div>
-              </div>
-
-              <div className="flex gap-2">
-                <button className="flex-1 py-2 bg-white border border-gray-300 rounded-lg text-gray-700 text-sm font-medium hover:bg-gray-50">
-                  승인하기
-                </button>
-                <button className="flex-1 py-2 bg-gray-300 text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-400">
-                  거절하기
-                </button>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* 페이지네이션 */}
-        <div className="flex items-center justify-center gap-2 mt-6">
-          <button className="w-8 h-8 flex items-center justify-center text-gray-400 hover:text-gray-600">
-            &lt;
-          </button>
-          <button className="w-8 h-8 flex items-center justify-center bg-orange-500 text-white rounded-full text-sm font-medium">1</button>
-          <button className="w-8 h-8 flex items-center justify-center text-gray-600 hover:bg-gray-100 rounded-full text-sm">2</button>
-          <button className="w-8 h-8 flex items-center justify-center text-gray-600 hover:bg-gray-100 rounded-full text-sm">3</button>
-          <button className="w-8 h-8 flex items-center justify-center text-gray-600 hover:bg-gray-100 rounded-full text-sm">4</button>
-          <button className="w-8 h-8 flex items-center justify-center text-gray-600 hover:bg-gray-100 rounded-full text-sm">5</button>
-          <span className="text-gray-400">...</span>
-          <button className="w-8 h-8 flex items-center justify-center text-gray-400 hover:text-gray-600">
-            &gt;
-          </button>
-        </div>
-
-        <button
-          onClick={onClose}
-          className="w-full mt-6 py-3 border border-gray-300 rounded-lg text-gray-700 text-sm font-medium hover:bg-gray-50"
-        >
-          닫기
-        </button>
       </div>
     </div>
   );
