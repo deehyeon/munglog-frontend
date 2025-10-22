@@ -216,31 +216,29 @@ function ShelterInfo() {
   const [isEditMode, setIsEditMode] = useState(false);
   const [showDogProfileModal, setShowDogProfileModal] = useState(false);
   const [editingDog, setEditingDog] = useState(null);
-  const [showPhotoUpload, setShowPhotoUpload] = useState(false);
 
   const [shelterData] = useState({
     name: '강남 보호소',
-    breed: '종: 홍길동',
-    managerEmail: 'ukaulaularu@naver.com',
+    address: '주소:',
+    managerName: '황유림',
+    managerEmail: 'uiuiuiui@naver.com',
     managerPhone: '010-0000-0000',
     url1: '인스타그램 URL',
-    url2: '블로그 URL',
+    url2: '홈페이지 URL',
     openingHours: '09:00 - 18:00',
-    volunteerDay: '매 3째주',
+    volunteerDay: '약 3개월',
     capacity: '200건',
-    staff: '10명',
-    description: `고수님은 능가 빙 현저 하였으며, 품에 웃 것은 쓸쓸하랴 쓸쓸하랴...[생략]
+    staff: '10건',
+    description: `고수님은 능가 빙 현저 하였으며, 품에 웃 것은 쓸쓸하랴 쓸쓸하랴.
 
-고수님은 우니의 할 가기 사랑의 새 가지에 하여도 산 쓸쓸하랴 것이다.
-기름 아니한 우는 끓는 옷을 것은 위하여서, 것은 보라, 거기도 쓸쓸한 아름다우나.
+당신은 1999년 설립된 이래 전력 생산, 송전, 배전 및 판자 산업 분야의 최고 품질의 제품 생산을 목표로 하고 있습니다.
+기술, 고객 중심 및 품질에 대한 타협하지 않는 관심은 모두 우리 성공의 기본입니다.
 
-고수님은 우니의 할 가기 사랑의 새 가지에 하여도 산 쓸쓸하랴 것이다.
-기름 아니한 우는 끓는 옷을 것은 위하여서, 것은 보라, 거기도 쓸쓸한 아름다우나.
-
-납의 원뜨로 가기의 것은 얼마나 뜨이는 밑이 없어도 아는 인간만의 것은 크다도
-몇이 야자의 자신 같이 인간이 생병을 위해서나다.
-
-몸도한이 자신과 구력로서 별태를서뿐이다. 날은 평일일 디뎌지다니 모내에터서있는 그들에게 약자를 야속도록한는다.`
+고수님은 회사로서 항상 기존 시장 리더의 추종자로서 비즈니스를 추구하기 보다는 자체 의제를 설정하기 위해 노력합니다.
+고수님은 기계 및 전력산업의 고용할 수요를 기반으로 비즈닥속 생산 및 가공기술 개발에서 경쟁력을 확보하고 있으며
+초고압을 떠다로맘 일할 제품인 등 부스바를 생산하며 지속적인 성장을 기록하고 있습니다.
+부품의 정확한 사양과 신뢰성에 대한 설계, 이해, 기술 및 연구 개발을 제공합니다.
+날로 복잡해지고 다양해지는 고객의 요구사항에 적절히 대응하고 혁신을 통해 우수한 부가가치 제품을 제공하기 위해 더욱 경쟁력 있고 역동적인 기업이 되도록 향상 노력하겠습니다.`
   });
 
   const handleAddDog = () => {
@@ -281,63 +279,66 @@ function ShelterInfo() {
       </div>
 
       {/* 보호소 기본 정보 */}
-      <div className="flex gap-6 mb-8">
+      <div className="flex gap-6 mb-6">
         {/* 프로필 이미지 */}
-        <div className="w-32 h-32 bg-orange-100 rounded-full flex items-center justify-center flex-shrink-0">
-          <span className="text-6xl">🐶</span>
+        <div className="w-40 h-40 bg-orange-100 rounded-3xl flex items-center justify-center flex-shrink-0">
+          <span className="text-7xl">🐶</span>
         </div>
 
         {/* 정보 */}
         <div className="flex-1">
-          <h2 className="text-xl font-bold text-gray-800 mb-3">{shelterData.name}</h2>
-          <div className="grid grid-cols-2 gap-x-8 gap-y-2 text-sm">
-            <div className="flex justify-between">
-              <span className="text-gray-600">종:</span>
-              <span className="text-gray-800">{shelterData.breed}</span>
+          <h2 className="text-2xl font-bold text-gray-800 mb-4">{shelterData.name}</h2>
+          <div className="space-y-2 text-sm">
+            <div className="flex items-center gap-2">
+              <span className="text-gray-600 min-w-[100px]">주소 :</span>
             </div>
-            <div className="flex justify-between">
-              <span className="text-gray-600">담당자 이메일:</span>
+            <div className="flex items-center gap-2">
+              <span className="text-gray-600 min-w-[100px]">대표자명</span>
+              <span className="text-gray-800">{shelterData.managerName}</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="text-gray-600 min-w-[100px]">대표자 이메일</span>
               <span className="text-gray-800">{shelterData.managerEmail}</span>
             </div>
-            <div className="flex justify-between">
-              <span className="text-gray-600">담당자 전화번호:</span>
+            <div className="flex items-center gap-2">
+              <span className="text-gray-600 min-w-[100px]">대표자 전화번호</span>
               <span className="text-gray-800">{shelterData.managerPhone}</span>
             </div>
-            <div className="flex justify-between">
-              <span className="text-gray-600">URL:</span>
+            <div className="flex items-center gap-2">
+              <span className="text-gray-600 min-w-[100px]">URL</span>
               <span className="text-blue-600">{shelterData.url1}</span>
             </div>
-            <div className="flex justify-between col-start-2">
-              <span className="text-gray-600">URL:</span>
+            <div className="flex items-center gap-2">
+              <span className="text-gray-600 min-w-[100px]">URL</span>
               <span className="text-blue-600">{shelterData.url2}</span>
             </div>
           </div>
         </div>
       </div>
 
-      {/* 운영 정보 */}
-      <div className="grid grid-cols-4 gap-4 mb-8 text-center">
-        <div>
-          <p className="text-xs text-gray-500 mb-1">보호소 운영 시간 / 시간</p>
-          <p className="font-bold text-gray-800">{shelterData.openingHours}</p>
+      {/* 운영 정보 - 회색 배경 박스 */}
+      <div className="grid grid-cols-4 gap-3 mb-8">
+        <div className="bg-gray-100 rounded-lg p-4 text-center">
+          <p className="text-xs text-gray-500 mb-2">보호소 운영 오일 / 시간</p>
+          <p className="font-bold text-gray-800 text-lg">{shelterData.openingHours}</p>
         </div>
-        <div>
-          <p className="text-xs text-gray-500 mb-1">봉사 가능 날짜 / 시간</p>
-          <p className="font-bold text-gray-800">{shelterData.volunteerDay}</p>
+        <div className="bg-gray-100 rounded-lg p-4 text-center">
+          <p className="text-xs text-gray-500 mb-2">봉사 가능 오일 / 시간</p>
+          <p className="font-bold text-gray-800 text-lg">{shelterData.volunteerDay}</p>
         </div>
-        <div>
-          <p className="text-xs text-gray-500 mb-1">보호소 면적 수용</p>
-          <p className="font-bold text-gray-800">{shelterData.capacity}</p>
+        <div className="bg-gray-100 rounded-lg p-4 text-center">
+          <p className="text-xs text-gray-500 mb-2">봉사 진행 횟수</p>
+          <p className="font-bold text-gray-800 text-lg">{shelterData.capacity}</p>
         </div>
-        <div>
-          <p className="text-xs text-gray-500 mb-1">인원</p>
-          <p className="font-bold text-gray-800">{shelterData.staff}</p>
+        <div className="bg-gray-100 rounded-lg p-4 text-center">
+          <p className="text-xs text-gray-500 mb-2">면적</p>
+          <p className="font-bold text-gray-800 text-lg">{shelterData.staff}</p>
         </div>
       </div>
 
       {/* 보호소 소개 */}
       <div className="mb-8">
-        <h3 className="text-lg font-bold text-gray-800 mb-3">보호소 소개글</h3>
+        <h3 className="text-lg font-bold text-gray-800 mb-4 underline">보호소 소개글</h3>
         <div className="text-sm text-gray-600 whitespace-pre-line leading-relaxed">
           {shelterData.description}
         </div>
@@ -345,7 +346,7 @@ function ShelterInfo() {
 
       {/* 지도 */}
       <div className="mb-8">
-        <h3 className="text-lg font-bold text-gray-800 mb-3">공공데이터: 출퇴 성싱사 동물판매업 등록 수수</h3>
+        <h3 className="text-base font-bold text-gray-800 mb-3">공공데이터: 충북 청주시 충대로1길 실태 주소</h3>
         <div className="w-full h-64 bg-gray-200 rounded-lg flex items-center justify-center">
           <span className="text-gray-400">지도 영역</span>
         </div>
@@ -466,16 +467,14 @@ function ShelterInfoEdit({ onCancel, onSave }) {
   const [formData, setFormData] = useState({
     shelterName: '강남 보호소',
     address: '경기도 수원시 영통구 매향로',
-    managerName: '홍길동',
-    managerEmail: 'ukaulaularu@naver.com',
+    managerName: '황유림',
+    managerEmail: 'uiuiuiui@naver.com',
     managerPhone: '010-0000-0000',
-    websiteLinks: ['인스타그램 URL', '블로그 URL'],
-    operatingStatus: '',
+    websiteLinks: ['인스타그램 URL', '홈페이지 URL'],
     openingHours: '09:00 - 18:00',
-    volunteerAvailable: '',
-    volunteerDay: '매 3째주',
+    volunteerDay: '약 3개월',
     shelterArea: '200건',
-    staff: '10명',
+    staff: '10건',
     description: ''
   });
 
@@ -522,7 +521,7 @@ function ShelterInfoEdit({ onCancel, onSave }) {
 
         <div>
           <label className="block text-sm font-semibold text-gray-800 mb-2">
-            담당자 이름 <span className="text-red-500">*</span>
+            대표자명 <span className="text-red-500">*</span>
           </label>
           <input
             type="text"
@@ -535,7 +534,7 @@ function ShelterInfoEdit({ onCancel, onSave }) {
 
         <div>
           <label className="block text-sm font-semibold text-gray-800 mb-2">
-            담당자 이메일 <span className="text-red-500">*</span>
+            대표자 이메일 <span className="text-red-500">*</span>
           </label>
           <input
             type="email"
@@ -548,7 +547,7 @@ function ShelterInfoEdit({ onCancel, onSave }) {
 
         <div>
           <label className="block text-sm font-semibold text-gray-800 mb-2">
-            담당자 전화번호 <span className="text-red-500">*</span>
+            대표자 전화번호 <span className="text-red-500">*</span>
           </label>
           <input
             type="tel"
