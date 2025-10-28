@@ -65,14 +65,15 @@ export default function Missing({
         </h1>
         <p className="text-gray-600 text-sm">
           동물이 실종되었다면 '<span className="font-semibold text-red-500">실종 게시판</span>'에, 
-          발견하여 보호중이라면 '<span className="font-semibold text-blue-500">보호게시판</span>'에 
+          발건하여 보호중이라면 '<span className="font-semibold text-blue-500">보호게시판</span>'에 
           글을 작성해주세요
         </p>
       </div>
 
-      {/* Tab Section - 첨부한 이미지 스타일로 변경 */}
-      <div className="bg-white rounded-2xl shadow-md p-6">
-        <div className="flex gap-8 mb-6">
+      {/* Tab Section - 흰색 박스 제거 */}
+      <div className="space-y-4">
+        {/* 탭 */}
+        <div className="flex gap-8">
           <button
             onClick={() => setActiveTab('missing')}
             className={`pb-2 font-bold text-lg transition-all relative ${
@@ -102,7 +103,7 @@ export default function Missing({
         </div>
 
         {/* Filter and Write Button */}
-        <div className="flex items-center justify-between mb-4">
+        <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
             <button
               onClick={() => setIsLocationModalOpen(true)}

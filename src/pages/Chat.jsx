@@ -66,7 +66,7 @@ export default function Chat({ setCurrentPage }) {
     },
     {
       id: 8,
-      name: '노령',
+      name: '노녹',
       lastMessage: '감사합니다~!!!! 쪽 쓰겠습니다!!',
       time: '유한들 · 1일 전',
       unread: 0,
@@ -202,14 +202,6 @@ export default function Chat({ setCurrentPage }) {
           </div>
           <p className="text-gray-500 text-base">채팅할 상대를 선택해주세요.</p>
         </div>
-      </div>
-
-      {/* 하단 공지 */}
-      <div className="absolute bottom-0 left-0 right-0 bg-blue-50 border-t border-blue-100 p-3 text-center">
-        <p className="text-sm text-blue-700">
-          PC앱(윈)용 하하감, 알림창에서 새 메시지를 빨리게 확인해 보세요. 
-          <a href="#" className="font-semibold hover:underline ml-1">알림 받기</a>
-        </p>
       </div>
     </div>
   );
