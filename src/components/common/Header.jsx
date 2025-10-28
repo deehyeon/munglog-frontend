@@ -1,11 +1,15 @@
 import React from 'react';
-import { Heart, Bell, User } from 'lucide-react';
+import { MessageCircle, Bell, User } from 'lucide-react';
 import DogLogo from './DogLogo';
 import { colors } from '../../constants/colors';
 
 const Header = ({ currentPage, setCurrentPage, isLoggedIn, userType }) => {
   const handleMyPageClick = () => {
     setCurrentPage('mypage');
+  };
+
+  const handleChatClick = () => {
+    setCurrentPage('chat');
   };
 
   return (
@@ -59,8 +63,12 @@ const Header = ({ currentPage, setCurrentPage, isLoggedIn, userType }) => {
           <div className="flex items-center gap-3">
             {isLoggedIn ? (
               <>
-                <button className="p-2 hover:bg-gray-100 rounded-full transition">
-                  <Heart className="w-5 h-5 text-gray-700" />
+                <button 
+                  onClick={handleChatClick}
+                  className="p-2 hover:bg-gray-100 rounded-full transition"
+                  title="채팅"
+                >
+                  <MessageCircle className="w-5 h-5 text-gray-700" />
                 </button>
                 <button className="p-2 hover:bg-gray-100 rounded-full transition relative">
                   <Bell className="w-5 h-5 text-gray-700" />
