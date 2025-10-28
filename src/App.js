@@ -4,6 +4,7 @@ import Footer from './components/common/Footer';
 import LocationModal from './components/common/LocationModal';
 import Home from './pages/Home';
 import Shelters from './pages/Shelters';
+import ShelterDetail from './pages/ShelterDetail';
 import Missing from './pages/Missing';
 import Adoption from './pages/Adoption';
 import Login from './pages/Login';
@@ -22,6 +23,7 @@ export default function App() {
   const [likedItems, setLikedItems] = useState(new Set());
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userType, setUserType] = useState(null); // 'volunteer', 'shelter', null
+  const [selectedShelterId, setSelectedShelterId] = useState(null);
 
   const toggleLike = (itemId) => {
     setLikedItems(prev => {
@@ -54,7 +56,9 @@ export default function App() {
     setIsLoggedIn,
     userType,
     setUserType,
-    handleLogout
+    handleLogout,
+    selectedShelterId,
+    setSelectedShelterId
   };
 
   return (
@@ -76,6 +80,7 @@ export default function App() {
 
         {currentPage === 'home' && <Home {...pageProps} />}
         {currentPage === 'shelters' && <Shelters {...pageProps} />}
+        {currentPage === 'shelter-detail' && <ShelterDetail shelterId={selectedShelterId} setCurrentPage={setCurrentPage} />}
         {currentPage === 'missing' && <Missing {...pageProps} />}
         {currentPage === 'adoption' && <Adoption {...pageProps} />}
         {currentPage === 'chat' && <Chat {...pageProps} />}
