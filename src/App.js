@@ -13,6 +13,7 @@ import ShelterSignup from './pages/ShelterSignup';
 import VolunteerMyPage from './pages/VolunteerMyPage';
 import ShelterMyPage from './pages/ShelterMyPage';
 import MyPage from './pages/MyPage';
+import Chat from './pages/Chat';
 
 export default function App() {
   const [currentPage, setCurrentPage] = useState('home');
@@ -34,6 +35,12 @@ export default function App() {
     });
   };
 
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+    setUserType(null);
+    setCurrentPage('home');
+  };
+
   const pageProps = {
     currentPage,
     setCurrentPage,
@@ -46,7 +53,8 @@ export default function App() {
     isLoggedIn,
     setIsLoggedIn,
     userType,
-    setUserType
+    setUserType,
+    handleLogout
   };
 
   return (
@@ -70,13 +78,14 @@ export default function App() {
         {currentPage === 'shelters' && <Shelters {...pageProps} />}
         {currentPage === 'missing' && <Missing {...pageProps} />}
         {currentPage === 'adoption' && <Adoption {...pageProps} />}
+        {currentPage === 'chat' && <Chat {...pageProps} />}
         {currentPage === 'login' && <Login setCurrentPage={setCurrentPage} setIsLoggedIn={setIsLoggedIn} setUserType={setUserType} />}
         {currentPage === 'signup' && <Signup setCurrentPage={setCurrentPage} />}
         {currentPage === 'volunteer-signup' && <VolunteerSignup setCurrentPage={setCurrentPage} setIsLoggedIn={setIsLoggedIn} setUserType={setUserType} />}
         {currentPage === 'shelter-signup' && <ShelterSignup setCurrentPage={setCurrentPage} setIsLoggedIn={setIsLoggedIn} setUserType={setUserType} />}
-        {currentPage === 'mypage' && userType === 'volunteer' && <VolunteerMyPage setCurrentPage={setCurrentPage} />}
-        {currentPage === 'mypage' && userType === 'shelter' && <ShelterMyPage setCurrentPage={setCurrentPage} />}
-        {currentPage === 'mypage' && !userType && <MyPage setCurrentPage={setCurrentPage} />}
+        {currentPage === 'mypage' && userType === 'volunteer' && <VolunteerMyPage setCurrentPage={setCurrentPage} handleLogout={handleLogout} />}
+        {currentPage === 'mypage' && userType === 'shelter' && <ShelterMyPage setCurrentPage={setCurrentPage} handleLogout={handleLogout} />}
+        {currentPage === 'mypage' && !userType && <MyPage setCurrentPage={setCurrentPage} handleLogout={handleLogout} />}
       </main>
 
       <Footer />
