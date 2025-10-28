@@ -4,7 +4,9 @@ export default function Shelters({
   selectedRegion, 
   setIsLocationModalOpen,
   likedItems,
-  toggleLike 
+  toggleLike,
+  setCurrentPage,
+  setSelectedShelterId
 }) {
   const [searchQuery, setSearchQuery] = useState('');
   const [activeFilter, setActiveFilter] = useState('volunteer');
@@ -51,6 +53,11 @@ export default function Shelters({
     { id: 'consulting', label: '👨‍⚕️ 컨설팅' },
     { id: 'distance', label: '📍 거리순' }
   ];
+
+  const handleShelterClick = (shelterId) => {
+    setSelectedShelterId(shelterId);
+    setCurrentPage('shelter-detail');
+  };
 
   return (
     <div className="space-y-6">
@@ -135,7 +142,8 @@ export default function Shelters({
         {shelters.map((shelter) => (
           <div
             key={shelter.id}
-            className="bg-white rounded-xl shadow-md p-4 hover:shadow-xl transition-shadow"
+            className="bg-white rounded-xl shadow-md p-4 hover:shadow-xl transition-shadow cursor-pointer"
+            onClick={() => handleShelterClick(shelter.id)}
           >
             <div className="flex gap-4">
               {/* 보호소 아이콘 - 크기 축소 */}
@@ -150,7 +158,10 @@ export default function Shelters({
                     {shelter.name}
                   </h3>
                   <button
-                    onClick={() => toggleLike(shelter.id)}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      toggleLike(shelter.id);
+                    }}
                     className="text-xl hover:scale-110 transition-transform"
                   >
                     {likedItems.has(shelter.id) ? '❤️' : '🤍'}
