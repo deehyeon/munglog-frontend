@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-export default function MyPage({ setCurrentPage }) {
+export default function MyPage({ setCurrentPage, handleLogout }) {
   const [activeMenu, setActiveMenu] = useState('info');
   const [showPasswordModal, setShowPasswordModal] = useState(false);
   const [showPhoneModal, setShowPhoneModal] = useState(false);
@@ -62,7 +62,10 @@ export default function MyPage({ setCurrentPage }) {
               </button>
             </nav>
             
-            <button className="w-full mt-8 px-4 py-3 text-left text-gray-500 hover:text-gray-700 transition-colors text-sm flex items-center gap-2">
+            <button 
+              onClick={handleLogout}
+              className="w-full mt-8 px-4 py-3 text-left text-gray-500 hover:text-gray-700 transition-colors text-sm flex items-center gap-2"
+            >
               🚪 로그아웃
             </button>
           </div>
