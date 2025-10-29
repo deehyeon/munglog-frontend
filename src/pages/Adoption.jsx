@@ -5,12 +5,12 @@ export default function Adoption({
   setIsLocationModalOpen,
   likedItems,
   toggleLike,
-  setCurrentPage,
-  setSelectedDogId
+  setCurrentPage
 }) {
   const [searchQuery, setSearchQuery] = useState('');
   const [ageFilter, setAgeFilter] = useState('all');
   const [genderFilter, setGenderFilter] = useState('all');
+  const [selectedDogId, setSelectedDogId] = useState(null);
 
   const handleDogClick = (dogId) => {
     setSelectedDogId(dogId);
@@ -157,7 +157,7 @@ export default function Adoption({
             alt="강아지 캐릭터" 
             className="w-32 h-32 object-contain"
             onError={(e) => {
-              e.target.src = 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y="60" font-size="60">🐶</text></svg>';
+              e.target.style.display = 'none';
             }}
           />
         </div>
@@ -247,7 +247,7 @@ export default function Adoption({
                 alt={dog.name}
                 className="w-40 h-40 object-contain"
                 onError={(e) => {
-                  e.target.src = 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y="60" font-size="60">🐶</text></svg>';
+                  e.target.style.display = 'none';
                 }}
               />
             </div>
@@ -282,8 +282,7 @@ export default function Adoption({
               </button>
             </div>
           </div>
-        ))}
-      </div>
+        ))}</div>
 
       {/* Pagination */}
       <div className="flex items-center justify-center gap-2 mt-8">
