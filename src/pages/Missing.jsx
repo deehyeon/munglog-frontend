@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import MissingDetailModal from '../components/MissingDetailModal';
 import ProtectedDetailModal from '../components/ProtectedDetailModal';
 
-export default function Missing() {
+export default function Missing({ setCurrentPage }) {
   const [activeTab, setActiveTab] = useState('missing');
   const [selectedRegion, setSelectedRegion] = useState('강남구');
   const [sortOrder, setSortOrder] = useState('최신순');
@@ -19,6 +19,14 @@ export default function Missing() {
   const handleCloseModal = () => {
     setIsModalOpen(false);
     setSelectedPost(null);
+  };
+
+  const handleCreatePost = () => {
+    if (activeTab === 'missing') {
+      setCurrentPage('missing-post-create');
+    } else {
+      setCurrentPage('protected-post-create');
+    }
   };
 
   // 게시글 데이터 (예시)
@@ -235,7 +243,10 @@ export default function Missing() {
             </button>
           </div>
 
-          <button className="px-6 py-2 bg-gray-100 text-gray-700 rounded-full text-sm font-medium hover:bg-gray-200">
+          <button 
+            onClick={handleCreatePost}
+            className="px-6 py-2 bg-gray-100 text-gray-700 rounded-full text-sm font-medium hover:bg-gray-200"
+          >
             게시글 작성
           </button>
         </div>
