@@ -28,6 +28,7 @@ export default function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userType, setUserType] = useState(null); // 'volunteer', 'shelter', null
   const [selectedShelterId, setSelectedShelterId] = useState(null);
+  const [selectedDogId, setSelectedDogId] = useState(null);
 
   const toggleLike = (itemId) => {
     setLikedItems(prev => {
@@ -62,7 +63,9 @@ export default function App() {
     setUserType,
     handleLogout,
     selectedShelterId,
-    setSelectedShelterId
+    setSelectedShelterId,
+    selectedDogId,
+    setSelectedDogId
   };
 
   return (
@@ -89,7 +92,7 @@ export default function App() {
         {currentPage === 'missing-post-create' && <MissingPostCreate setCurrentPage={setCurrentPage} />}
         {currentPage === 'protected-post-create' && <ProtectedPostCreate setCurrentPage={setCurrentPage} />}
         {currentPage === 'adoption' && <Adoption {...pageProps} />}
-        {currentPage === 'adoption-detail' && <AdoptionDetail setCurrentPage={setCurrentPage} />}
+        {currentPage === 'adoption-detail' && <AdoptionDetail dogId={selectedDogId} setCurrentPage={setCurrentPage} />}
         {currentPage === 'adoption-post-create' && <AdoptionPostCreate setCurrentPage={setCurrentPage} />}
         {currentPage === 'chat' && <Chat {...pageProps} />}
         {currentPage === 'login' && <Login setCurrentPage={setCurrentPage} setIsLoggedIn={setIsLoggedIn} setUserType={setUserType} />}

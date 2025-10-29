@@ -1,16 +1,17 @@
 import React, { useState } from 'react';
+import dogLogo from '../components/logo/돈이 캐릭터 2.svg';
 
 export default function Adoption({ 
   selectedRegion, 
   setIsLocationModalOpen,
   likedItems,
   toggleLike,
-  setCurrentPage
+  setCurrentPage,
+  setSelectedDogId
 }) {
   const [searchQuery, setSearchQuery] = useState('');
   const [ageFilter, setAgeFilter] = useState('all');
   const [genderFilter, setGenderFilter] = useState('all');
-  const [selectedDogId, setSelectedDogId] = useState(null);
 
   const handleDogClick = (dogId) => {
     setSelectedDogId(dogId);
@@ -153,12 +154,9 @@ export default function Adoption({
         </h1>
         <div className="flex justify-center mb-4">
           <img 
-            src="/logo/돈이 캐릭터 2.svg" 
+            src={dogLogo}
             alt="강아지 캐릭터" 
             className="w-32 h-32 object-contain"
-            onError={(e) => {
-              e.target.style.display = 'none';
-            }}
           />
         </div>
         <p className="text-gray-600 text-sm">
@@ -243,12 +241,9 @@ export default function Adoption({
 
             <div className="h-48 flex items-center justify-center bg-gray-100">
               <img 
-                src="/logo/돈이 캐릭터 2.svg"
+                src={dogLogo}
                 alt={dog.name}
                 className="w-40 h-40 object-contain"
-                onError={(e) => {
-                  e.target.style.display = 'none';
-                }}
               />
             </div>
 
@@ -282,7 +277,8 @@ export default function Adoption({
               </button>
             </div>
           </div>
-        ))}</div>
+        ))}
+      </div>
 
       {/* Pagination */}
       <div className="flex items-center justify-center gap-2 mt-8">
