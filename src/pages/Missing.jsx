@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import MissingDetailModal from '../components/MissingDetailModal';
+import ProtectedDetailModal from '../components/ProtectedDetailModal';
 
 export default function Missing() {
   const [activeTab, setActiveTab] = useState('missing');
@@ -118,10 +119,11 @@ export default function Missing() {
       title: '비숑 프리제를 보호중입니다.',
       foundLocation: '경기도 동탄시 오포동 농협은행 건너',
       foundDate: '2021.05.18',
-      age: '3세',
+      breed: '비숑 프리제',
       gender: '비숑 프리제',
+      sex: '수컷',
       status: '보호',
-      description: '보호중인 반려견에 대한 자세한 설명입니다. 주인을 찾고 있습니다.',
+      description: '경기도 동탄시 오포동 농협은행 근처에서 발견하여 현재 보호중입니다. 비숑 프리제 수컷으로 추정되며, 건강 상태는 양호합니다. 분홍색 목줄을 착용하고 있었습니다. 주인을 찾고 있습니다.',
       image: '/images/dog-character.png'
     },
     {
@@ -129,8 +131,9 @@ export default function Missing() {
       title: '비숑 프리제를 보호중입니다.',
       foundLocation: '경기도 동탄시 오포동 농협은행 건너',
       foundDate: '2021.05.18',
-      age: '3세',
+      breed: '비숑 프리제',
       gender: '비숑 프리제',
+      sex: '암컷',
       status: '보호',
       description: '보호중인 반려견에 대한 자세한 설명입니다.',
       image: '/images/dog-character.png'
@@ -140,8 +143,9 @@ export default function Missing() {
       title: '비숑 프리제를 보호중입니다.',
       foundLocation: '경기도 동탄시 오포동 농협은행 건너',
       foundDate: '2021.05.18',
-      age: '3세',
+      breed: '비숑 프리제',
       gender: '비숑 프리제',
+      sex: '수컷',
       status: '보호',
       description: '보호중인 반려견에 대한 자세한 설명입니다.',
       image: '/images/dog-character.png'
@@ -283,7 +287,7 @@ export default function Missing() {
                       </div>
                       <div className="flex items-center gap-2">
                         <span className="font-medium min-w-20">나이 :</span>
-                        <span>{post.age}</span>
+                        <span>{post.age || '미상'}</span>
                       </div>
                       <div className="flex items-center gap-2">
                         <span className="font-medium min-w-20">성별 :</span>
@@ -340,12 +344,20 @@ export default function Missing() {
         </div>
       </div>
 
-      {/* Modal */}
-      <MissingDetailModal 
-        isOpen={isModalOpen}
-        onClose={handleCloseModal}
-        post={selectedPost}
-      />
+      {/* Modal - 탭에 따라 다른 모달 표시 */}
+      {activeTab === 'missing' ? (
+        <MissingDetailModal 
+          isOpen={isModalOpen}
+          onClose={handleCloseModal}
+          post={selectedPost}
+        />
+      ) : (
+        <ProtectedDetailModal 
+          isOpen={isModalOpen}
+          onClose={handleCloseModal}
+          post={selectedPost}
+        />
+      )}
     </>
   );
 }
