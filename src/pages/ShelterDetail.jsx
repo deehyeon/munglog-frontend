@@ -116,17 +116,17 @@ export default function ShelterDetail({ shelterId, setCurrentPage }) {
           </div>
 
           {/* 오른쪽 버튼 */}
-          <div className="flex flex-row gap-2">
-            <button className="px-4 py-2 border border-gray-300 rounded-lg text-sm text-gray-700 hover:bg-gray-50 flex items-center gap-1">
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div className="flex flex-row gap-2 items-start">
+            <button className="px-3 py-1 border border-gray-300 rounded-lg text-xs text-gray-700 hover:bg-gray-50 flex items-center gap-1">
+              <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
               </svg>
               찜
             </button>
-            <button className="px-4 py-2 border border-gray-300 rounded-lg text-sm text-gray-700 hover:bg-gray-50">
+            <button className="px-3 py-1 border border-gray-300 rounded-lg text-xs text-gray-700 hover:bg-gray-50 whitespace-nowrap">
               1:1 채팅
             </button>
-            <button className="px-6 py-2 bg-red-500 text-white rounded-lg text-sm font-bold hover:bg-red-600">
+            <button className="px-4 py-1 bg-red-500 text-white rounded-lg text-xs font-bold hover:bg-red-600 whitespace-nowrap">
               봉사 신청하기
             </button>
           </div>
