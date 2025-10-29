@@ -5,7 +5,8 @@ export default function Adoption({
   selectedRegion, 
   setIsLocationModalOpen,
   likedItems,
-  toggleLike 
+  toggleLike,
+  setCurrentPage 
 }) {
   const [searchQuery, setSearchQuery] = useState('');
   const [ageFilter, setAgeFilter] = useState('all');
@@ -23,6 +24,10 @@ export default function Adoption({
     setSelectedDog(null);
   };
 
+  const handleCreatePost = () => {
+    setCurrentPage('adoption-post-create');
+  };
+
   const dogs = [
     {
       id: 1,
@@ -33,7 +38,7 @@ export default function Adoption({
       gender: '여아',
       weight: '3kg',
       adopted: false,
-      image: '/logo/돈이 캐릭터1 1.svg'
+      image: '/logo/돈이 캐릭터 2.svg'
     },
     {
       id: 2,
@@ -55,7 +60,7 @@ export default function Adoption({
       gender: '여아',
       weight: '3kg',
       adopted: false,
-      image: '/logo/돈이 캐릭터 3.svg'
+      image: '/logo/돈이 캐릭터 2.svg'
     },
     {
       id: 4,
@@ -66,7 +71,7 @@ export default function Adoption({
       gender: '여아',
       weight: '3kg',
       adopted: false,
-      image: '/logo/돈이 캐릭터 4.svg'
+      image: '/logo/돈이 캐릭터 2.svg'
     },
     {
       id: 5,
@@ -77,7 +82,7 @@ export default function Adoption({
       gender: '여아',
       weight: '3kg',
       adopted: false,
-      image: '/logo/돈이 캐릭터 5.svg'
+      image: '/logo/돈이 캐릭터 2.svg'
     },
     {
       id: 6,
@@ -88,7 +93,7 @@ export default function Adoption({
       gender: '여아',
       weight: '3kg',
       adopted: false,
-      image: '/logo/돈이 캐릭터 6.svg'
+      image: '/logo/돈이 캐릭터 2.svg'
     },
     {
       id: 7,
@@ -99,7 +104,7 @@ export default function Adoption({
       gender: '여아',
       weight: '3kg',
       adopted: false,
-      image: '/logo/돈이 캐릭터1 1.svg'
+      image: '/logo/돈이 캐릭터 2.svg'
     },
     {
       id: 8,
@@ -121,7 +126,7 @@ export default function Adoption({
       gender: '여아',
       weight: '3kg',
       adopted: false,
-      image: '/logo/돈이 캐릭터 3.svg'
+      image: '/logo/돈이 캐릭터 2.svg'
     },
     {
       id: 10,
@@ -132,7 +137,7 @@ export default function Adoption({
       gender: '여아',
       weight: '3kg',
       adopted: false,
-      image: '/logo/돈이 캐릭터 4.svg'
+      image: '/logo/돈이 캐릭터 2.svg'
     },
     {
       id: 11,
@@ -143,7 +148,7 @@ export default function Adoption({
       gender: '여아',
       weight: '3kg',
       adopted: false,
-      image: '/logo/돈이 캐릭터 5.svg'
+      image: '/logo/돈이 캐릭터 2.svg'
     },
     {
       id: 12,
@@ -154,7 +159,7 @@ export default function Adoption({
       gender: '여아',
       weight: '3kg',
       adopted: false,
-      image: '/logo/돈이 캐릭터 6.svg'
+      image: '/logo/돈이 캐릭터 2.svg'
     }
   ];
 
@@ -224,7 +229,10 @@ export default function Adoption({
             </button>
           </div>
 
-          <button className="px-6 py-2 bg-gray-100 text-gray-700 rounded-full text-sm font-medium hover:bg-gray-200 ml-auto whitespace-nowrap">
+          <button 
+            onClick={handleCreatePost}
+            className="px-6 py-2 bg-gray-100 text-gray-700 rounded-full text-sm font-medium hover:bg-gray-200 ml-auto whitespace-nowrap"
+          >
             게시글 작성
           </button>
         </div>
