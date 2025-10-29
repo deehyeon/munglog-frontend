@@ -9,6 +9,7 @@ import Missing from './pages/Missing';
 import MissingPostCreate from './pages/MissingPostCreate';
 import ProtectedPostCreate from './pages/ProtectedPostCreate';
 import Adoption from './pages/Adoption';
+import AdoptionDetail from './pages/AdoptionDetail';
 import AdoptionPostCreate from './pages/AdoptionPostCreate';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
@@ -88,6 +89,7 @@ export default function App() {
         {currentPage === 'missing-post-create' && <MissingPostCreate setCurrentPage={setCurrentPage} />}
         {currentPage === 'protected-post-create' && <ProtectedPostCreate setCurrentPage={setCurrentPage} />}
         {currentPage === 'adoption' && <Adoption {...pageProps} />}
+        {currentPage === 'adoption-detail' && <AdoptionDetail setCurrentPage={setCurrentPage} />}
         {currentPage === 'adoption-post-create' && <AdoptionPostCreate setCurrentPage={setCurrentPage} />}
         {currentPage === 'chat' && <Chat {...pageProps} />}
         {currentPage === 'login' && <Login setCurrentPage={setCurrentPage} setIsLoggedIn={setIsLoggedIn} setUserType={setUserType} />}
