@@ -1,6 +1,6 @@
 import React from 'react';
 import { MessageCircle, Bell, User } from 'lucide-react';
-import DogLogo from './DogLogo';
+import logo from '../logo/돈이 캐릭터 5.svg';
 import { colors } from '../../constants/colors';
 
 const Header = ({ currentPage, setCurrentPage, isLoggedIn, userType }) => {
@@ -17,7 +17,7 @@ const Header = ({ currentPage, setCurrentPage, isLoggedIn, userType }) => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
         <div className="flex items-center gap-8">
           <div className="flex items-center gap-3 cursor-pointer" onClick={() => setCurrentPage('home')}>
-            <DogLogo size={48} />
+            <img src={logo} alt="멍로그 로고" style={{ width: 48, height: 48 }} />
             <h1 className="text-xl sm:text-2xl font-bold" style={{ 
               background: `linear-gradient(to right, ${colors.primary}, ${colors.secondary})`,
               WebkitBackgroundClip: 'text',
