@@ -1,6 +1,4 @@
 import React, { useState } from 'react';
-import DoniCharacter2 from '../components/logo/돈이 캐릭터 2.svg';
-import DoniCharacter5 from '../components/logo/돈이 캐릭터 5.svg';
 
 export default function Adoption({ 
   selectedRegion, 
@@ -8,14 +6,14 @@ export default function Adoption({
   likedItems,
   toggleLike,
   setCurrentPage,
-  setSelectedDog
+  setSelectedDogId
 }) {
   const [searchQuery, setSearchQuery] = useState('');
   const [ageFilter, setAgeFilter] = useState('all');
   const [genderFilter, setGenderFilter] = useState('all');
 
-  const handleDogClick = (dog) => {
-    setSelectedDog(dog);
+  const handleDogClick = (dogId) => {
+    setSelectedDogId(dogId);
     setCurrentPage('adoption-detail');
   };
 
@@ -32,8 +30,7 @@ export default function Adoption({
       age: '2년',
       gender: '여아',
       weight: '3kg',
-      adopted: false,
-      image: DoniCharacter2
+      adopted: false
     },
     {
       id: 2,
@@ -43,8 +40,7 @@ export default function Adoption({
       age: '0년',
       gender: '여아',
       weight: '3kg',
-      adopted: false,
-      image: DoniCharacter2
+      adopted: false
     },
     {
       id: 3,
@@ -54,8 +50,7 @@ export default function Adoption({
       age: '2년',
       gender: '여아',
       weight: '3kg',
-      adopted: false,
-      image: DoniCharacter2
+      adopted: false
     },
     {
       id: 4,
@@ -65,8 +60,7 @@ export default function Adoption({
       age: '2년',
       gender: '여아',
       weight: '3kg',
-      adopted: false,
-      image: DoniCharacter2
+      adopted: false
     },
     {
       id: 5,
@@ -76,8 +70,7 @@ export default function Adoption({
       age: '2년',
       gender: '여아',
       weight: '3kg',
-      adopted: false,
-      image: DoniCharacter2
+      adopted: false
     },
     {
       id: 6,
@@ -87,8 +80,7 @@ export default function Adoption({
       age: '2년',
       gender: '여아',
       weight: '3kg',
-      adopted: false,
-      image: DoniCharacter2
+      adopted: false
     },
     {
       id: 7,
@@ -98,8 +90,7 @@ export default function Adoption({
       age: '2년',
       gender: '여아',
       weight: '3kg',
-      adopted: false,
-      image: DoniCharacter2
+      adopted: false
     },
     {
       id: 8,
@@ -109,8 +100,7 @@ export default function Adoption({
       age: '2년',
       gender: '여아',
       weight: '3kg',
-      adopted: false,
-      image: DoniCharacter2
+      adopted: false
     },
     {
       id: 9,
@@ -120,8 +110,7 @@ export default function Adoption({
       age: '2년',
       gender: '여아',
       weight: '3kg',
-      adopted: false,
-      image: DoniCharacter2
+      adopted: false
     },
     {
       id: 10,
@@ -131,8 +120,7 @@ export default function Adoption({
       age: '2년',
       gender: '여아',
       weight: '3kg',
-      adopted: false,
-      image: DoniCharacter2
+      adopted: false
     },
     {
       id: 11,
@@ -142,8 +130,7 @@ export default function Adoption({
       age: '2년',
       gender: '여아',
       weight: '3kg',
-      adopted: false,
-      image: DoniCharacter2
+      adopted: false
     },
     {
       id: 12,
@@ -153,8 +140,7 @@ export default function Adoption({
       age: '2년',
       gender: '여아',
       weight: '3kg',
-      adopted: false,
-      image: DoniCharacter2
+      adopted: false
     }
   ];
 
@@ -167,9 +153,12 @@ export default function Adoption({
         </h1>
         <div className="flex justify-center mb-4">
           <img 
-            src={DoniCharacter5}
+            src="/logo/돈이 캐릭터 2.svg" 
             alt="강아지 캐릭터" 
             className="w-32 h-32 object-contain"
+            onError={(e) => {
+              e.target.src = 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y="60" font-size="60">🐶</text></svg>';
+            }}
           />
         </div>
         <p className="text-gray-600 text-sm">
@@ -233,7 +222,8 @@ export default function Adoption({
         {dogs.map((dog) => (
           <div
             key={dog.id}
-            className="bg-white rounded-2xl shadow-sm overflow-hidden relative border border-gray-200 hover:shadow-md transition-shadow"
+            className="bg-white rounded-2xl shadow-sm overflow-hidden relative border border-gray-200 hover:shadow-md transition-shadow cursor-pointer"
+            onClick={() => handleDogClick(dog.id)}
           >
             <button
               onClick={(e) => {
@@ -251,11 +241,14 @@ export default function Adoption({
               </div>
             )}
 
-            <div className="h-48 flex items-center justify-center bg-gray-100 cursor-pointer" onClick={() => handleDogClick(dog)}>
+            <div className="h-48 flex items-center justify-center bg-gray-100">
               <img 
-                src={dog.image}
+                src="/logo/돈이 캐릭터 2.svg"
                 alt={dog.name}
                 className="w-40 h-40 object-contain"
+                onError={(e) => {
+                  e.target.src = 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y="60" font-size="60">🐶</text></svg>';
+                }}
               />
             </div>
 
@@ -283,7 +276,6 @@ export default function Adoption({
               </div>
 
               <button 
-                onClick={() => handleDogClick(dog)}
                 className="w-full py-2 bg-yellow-400 text-gray-800 rounded-full text-sm font-bold hover:bg-yellow-500 transition-colors"
               >
                 자세히 보기
