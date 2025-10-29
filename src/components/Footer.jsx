@@ -1,5 +1,5 @@
 import React from 'react';
-import DogLogo from './DogLogo';
+import logo from './logo/돈이 캐릭터 5.svg';
 
 export default function Footer() {
   return (
@@ -8,7 +8,7 @@ export default function Footer() {
         <div className="grid md:grid-cols-4 gap-8 mb-8">
           <div>
             <h3 className="text-white font-bold text-lg mb-4 flex items-center gap-2">
-              <DogLogo size={24} />
+              <img src={logo} alt="멍로그 로고" style={{ width: 24, height: 24 }} />
               고객센터
             </h3>
             <div className="space-y-2">

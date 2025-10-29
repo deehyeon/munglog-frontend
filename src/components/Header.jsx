@@ -1,6 +1,6 @@
 import React from 'react';
 import { Heart, Bell, User } from 'lucide-react';
-import DogLogo from './DogLogo';
+import logo from './logo/돈이 캐릭터 5.svg';
 
 const colors = {
   primary: '#FFB701',
@@ -15,7 +15,7 @@ export default function Header({ currentPage, setCurrentPage, isLoggedIn }) {
         <div className="flex items-center gap-8">
           {/* 로고 */}
           <div className="flex items-center gap-3 cursor-pointer" onClick={() => setCurrentPage('home')}>
-            <DogLogo size={48} />
+            <img src={logo} alt="멍로그 로고" style={{ width: 48, height: 48 }} />
             <h1 
               className="text-xl sm:text-2xl font-bold" 
               style={{ 
