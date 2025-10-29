@@ -120,10 +120,10 @@ export default function Missing() {
       foundLocation: '경기도 동탄시 오포동 농협은행 건너',
       foundDate: '2021.05.18',
       breed: '비숑 프리제',
-      gender: '비숑 프리제',
       sex: '수컷',
+      gender: '비숑 프리제',
       status: '보호',
-      description: '경기도 동탄시 오포동 농협은행 근처에서 발견하여 현재 보호중입니다. 비숑 프리제 수컷으로 추정되며, 건강 상태는 양호합니다. 분홍색 목줄을 착용하고 있었습니다. 주인을 찾고 있습니다.',
+      description: '비숑 프리제 수컷을 보호중입니다. 경기도 동탄시 오포동 농협은행 근처에서 발견하여 현재 보호소에서 보호하고 있습니다. 목에 파란색 목줄을 착용하고 있었으며 사람을 잘 따릅니다. 주인을 찾습니다.',
       image: '/images/dog-character.png'
     },
     {
@@ -132,8 +132,8 @@ export default function Missing() {
       foundLocation: '경기도 동탄시 오포동 농협은행 건너',
       foundDate: '2021.05.18',
       breed: '비숑 프리제',
-      gender: '비숑 프리제',
       sex: '암컷',
+      gender: '비숑 프리제',
       status: '보호',
       description: '보호중인 반려견에 대한 자세한 설명입니다.',
       image: '/images/dog-character.png'
@@ -144,8 +144,8 @@ export default function Missing() {
       foundLocation: '경기도 동탄시 오포동 농협은행 건너',
       foundDate: '2021.05.18',
       breed: '비숑 프리제',
-      gender: '비숑 프리제',
       sex: '수컷',
+      gender: '비숑 프리제',
       status: '보호',
       description: '보호중인 반려견에 대한 자세한 설명입니다.',
       image: '/images/dog-character.png'
@@ -286,8 +286,8 @@ export default function Missing() {
                         <span>{post.foundDate}</span>
                       </div>
                       <div className="flex items-center gap-2">
-                        <span className="font-medium min-w-20">나이 :</span>
-                        <span>{post.age || '미상'}</span>
+                        <span className="font-medium min-w-20">{activeTab === 'missing' ? '나이' : '종'} :</span>
+                        <span>{activeTab === 'missing' ? post.age : post.breed}</span>
                       </div>
                       <div className="flex items-center gap-2">
                         <span className="font-medium min-w-20">성별 :</span>
@@ -344,7 +344,7 @@ export default function Missing() {
         </div>
       </div>
 
-      {/* Modal - 탭에 따라 다른 모달 표시 */}
+      {/* Modals */}
       {activeTab === 'missing' ? (
         <MissingDetailModal 
           isOpen={isModalOpen}

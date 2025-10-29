@@ -62,7 +62,7 @@ const ProtectedDetailModal = ({ isOpen, onClose, post }) => {
               </div>
             </div>
 
-            {/* Breed */}
+            {/* Species/Breed */}
             <div className="flex items-start gap-3">
               <div className="flex-shrink-0 w-32 py-3 px-4 bg-gray-200 rounded-xl">
                 <span className="text-sm font-semibold text-gray-700">종</span>
