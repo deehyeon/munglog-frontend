@@ -9,7 +9,6 @@ export default function Adoption({
   const [searchQuery, setSearchQuery] = useState('');
   const [ageFilter, setAgeFilter] = useState('all');
   const [genderFilter, setGenderFilter] = useState('all');
-  const [healthFilter, setHealthFilter] = useState('all');
 
   const dogs = [
     {
@@ -21,7 +20,7 @@ export default function Adoption({
       gender: '여아',
       weight: '3kg',
       adopted: false,
-      emoji: '🐕'
+      image: '/images/doni-character-1.png'
     },
     {
       id: 2,
@@ -32,7 +31,7 @@ export default function Adoption({
       gender: '남아',
       weight: '4kg',
       adopted: false,
-      emoji: '🐩'
+      image: '/images/doni-character-2.png'
     },
     {
       id: 3,
@@ -43,7 +42,7 @@ export default function Adoption({
       gender: '남아',
       weight: '25kg',
       adopted: false,
-      emoji: '🦮'
+      image: '/images/doni-character-3.png'
     },
     {
       id: 4,
@@ -54,7 +53,7 @@ export default function Adoption({
       gender: '여아',
       weight: '5kg',
       adopted: true,
-      emoji: '🐕'
+      image: '/images/doni-character-4.png'
     },
     {
       id: 5,
@@ -65,7 +64,7 @@ export default function Adoption({
       gender: '여아',
       weight: '3kg',
       adopted: false,
-      emoji: '🐕'
+      image: '/images/doni-character-5.png'
     },
     {
       id: 6,
@@ -76,7 +75,7 @@ export default function Adoption({
       gender: '남아',
       weight: '8kg',
       adopted: false,
-      emoji: '🐶'
+      image: '/images/doni-character-6.png'
     },
     {
       id: 7,
@@ -87,7 +86,7 @@ export default function Adoption({
       gender: '여아',
       weight: '4kg',
       adopted: false,
-      emoji: '🐩'
+      image: '/images/doni-character-1.png'
     },
     {
       id: 8,
@@ -98,7 +97,7 @@ export default function Adoption({
       gender: '남아',
       weight: '3kg',
       adopted: false,
-      emoji: '🐕'
+      image: '/images/doni-character-2.png'
     }
   ];
 
@@ -145,17 +144,6 @@ export default function Adoption({
             <option value="female">여아</option>
           </select>
 
-          <select
-            value={healthFilter}
-            onChange={(e) => setHealthFilter(e.target.value)}
-            className="px-4 py-2 border-2 border-gray-300 rounded-full text-sm font-medium hover:border-yellow-400 transition-colors cursor-pointer focus:outline-none focus:border-yellow-400"
-          >
-            <option value="all">건강 전체</option>
-            <option value="excellent">매우 건강</option>
-            <option value="good">건강</option>
-            <option value="fair">양호</option>
-          </select>
-
           <div className="flex-1 min-w-[200px] relative">
             <input
               type="text"
@@ -180,7 +168,7 @@ export default function Adoption({
         {dogs.map((dog) => (
           <div
             key={dog.id}
-            className="bg-gradient-to-br from-yellow-100 to-yellow-200 rounded-2xl shadow-md hover:shadow-xl transition-all overflow-hidden relative"
+            className="bg-white rounded-2xl shadow-md hover:shadow-xl transition-all overflow-hidden relative border border-gray-200"
           >
             <button
               onClick={() => toggleLike(dog.id)}
@@ -197,8 +185,15 @@ export default function Adoption({
               </div>
             )}
 
-            <div className="h-40 flex items-center justify-center text-6xl bg-yellow-200">
-              {dog.emoji}
+            <div className="h-40 flex items-center justify-center bg-gray-50">
+              <img 
+                src={dog.image} 
+                alt={dog.name}
+                className="w-32 h-32 object-contain"
+                onError={(e) => {
+                  e.target.src = 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y="60" font-size="60">🐶</text></svg>';
+                }}
+              />
             </div>
 
             <div className="p-4">
