@@ -27,7 +27,6 @@ export default function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userType, setUserType] = useState(null); // 'volunteer', 'shelter', null
   const [selectedShelterId, setSelectedShelterId] = useState(null);
-  const [selectedDogId, setSelectedDogId] = useState(null);
 
   const toggleLike = (itemId) => {
     setLikedItems(prev => {
@@ -62,9 +61,7 @@ export default function App() {
     setUserType,
     handleLogout,
     selectedShelterId,
-    setSelectedShelterId,
-    selectedDogId,
-    setSelectedDogId
+    setSelectedShelterId
   };
 
   return (
