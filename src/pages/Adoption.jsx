@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import dogLogo from '../components/logo/돈이 캐릭터 2.svg';
+import dogLogo from '../components/logo/돈이 캐릭터 5.svg';
 
 export default function Adoption({ 
   selectedRegion, 
