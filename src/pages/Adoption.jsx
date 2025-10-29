@@ -60,7 +60,7 @@ export default function Adoption({
     {
       id: 4,
       name: '하늘',
-      breed: '말티즈',
+      breed: '시츄',
       region: '강남구',
       age: '2년',
       gender: '여아',
@@ -166,13 +166,13 @@ export default function Adoption({
           <h1 className="text-2xl font-bold text-gray-800 mb-4">
             새로운 가족을 찾아요
           </h1>
-          <div className=\"flex justify-center mb-4\">
+          <div className="flex justify-center mb-4">
             <img 
-              src=\"/logo/돈이 캐릭터 5.svg\" 
-              alt=\"강아지 캐릭터\" 
-              className=\"w-32 h-32 object-contain\"
+              src="/logo/돈이 캐릭터 5.svg" 
+              alt="강아지 캐릭터" 
+              className="w-32 h-32 object-contain"
               onError={(e) => {
-                e.target.src = 'data:image/svg+xml,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"><text y=\"60\" font-size=\"60\">🐶</text></svg>';
+                e.target.src = 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y="60" font-size="60">🐶</text></svg>';
               }}
             />
           </div>
@@ -258,7 +258,7 @@ export default function Adoption({
                   alt={dog.name}
                   className="w-40 h-40 object-contain"
                   onError={(e) => {
-                    e.target.src = 'data:image/svg+xml,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"><text y=\"60\" font-size=\"60\">🐶</text></svg>';
+                    e.target.src = 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y="60" font-size="60">🐶</text></svg>';
                   }}
                 />
               </div>
