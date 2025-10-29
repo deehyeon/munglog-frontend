@@ -6,6 +6,8 @@ import Home from './pages/Home';
 import Shelters from './pages/Shelters';
 import ShelterDetail from './pages/ShelterDetail';
 import Missing from './pages/Missing';
+import MissingPostCreate from './pages/MissingPostCreate';
+import ProtectedPostCreate from './pages/ProtectedPostCreate';
 import Adoption from './pages/Adoption';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
@@ -82,6 +84,8 @@ export default function App() {
         {currentPage === 'shelters' && <Shelters {...pageProps} />}
         {currentPage === 'shelter-detail' && <ShelterDetail shelterId={selectedShelterId} setCurrentPage={setCurrentPage} />}
         {currentPage === 'missing' && <Missing {...pageProps} />}
+        {currentPage === 'missing-post-create' && <MissingPostCreate setCurrentPage={setCurrentPage} />}
+        {currentPage === 'protected-post-create' && <ProtectedPostCreate setCurrentPage={setCurrentPage} />}
         {currentPage === 'adoption' && <Adoption {...pageProps} />}
         {currentPage === 'chat' && <Chat {...pageProps} />}
         {currentPage === 'login' && <Login setCurrentPage={setCurrentPage} setIsLoggedIn={setIsLoggedIn} setUserType={setUserType} />}
