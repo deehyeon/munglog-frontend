@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import dogLogo from '../components/logo/돈이 캐릭터 5.svg';
+import dogCharacter from '../components/logo/돈이 캐릭터 5.svg';
 
 export default function Adoption({ 
   selectedRegion, 
@@ -154,7 +154,7 @@ export default function Adoption({
         </h1>
         <div className="flex justify-center mb-4">
           <img 
-            src={dogLogo}
+            src={dogCharacter}
             alt="강아지 캐릭터" 
             className="w-32 h-32 object-contain"
           />
@@ -241,7 +241,7 @@ export default function Adoption({
 
             <div className="h-48 flex items-center justify-center bg-gray-100">
               <img 
-                src={dogLogo}
+                src={dogCharacter}
                 alt={dog.name}
                 className="w-40 h-40 object-contain"
               />
