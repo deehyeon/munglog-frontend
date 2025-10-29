@@ -14,8 +14,7 @@ export default function AdoptionDetailModal({ isOpen, onClose, dog }) {
           <div className="relative mb-6">
             <div className="border-2 border-gray-800 rounded-3xl p-8 bg-white">
               <button
-                onClick={() => {}}
-                className="absolute top-4 right-4 z-10 text-3xl"
+                className="absolute top-4 right-4 z-10 text-3xl hover:scale-110 transition-transform"
               >
                 ❤️
               </button>
@@ -44,7 +43,7 @@ export default function AdoptionDetailModal({ isOpen, onClose, dog }) {
                   type="text"
                   value={dog.name}
                   readOnly
-                  className="w-full px-4 py-2 bg-gray-100 rounded-lg text-gray-800"
+                  className="w-full px-4 py-3 bg-gray-100 rounded-lg text-gray-800 font-medium"
                 />
               </div>
               <div className="col-span-2">
@@ -55,7 +54,7 @@ export default function AdoptionDetailModal({ isOpen, onClose, dog }) {
                   type="text"
                   value={dog.breed}
                   readOnly
-                  className="w-full px-4 py-2 bg-gray-100 rounded-lg text-gray-800"
+                  className="w-full px-4 py-3 bg-gray-100 rounded-lg text-gray-800 font-medium"
                 />
               </div>
             </div>
@@ -70,7 +69,7 @@ export default function AdoptionDetailModal({ isOpen, onClose, dog }) {
                   type="text"
                   value={dog.age}
                   readOnly
-                  className="w-full px-4 py-2 bg-gray-100 rounded-lg text-gray-800"
+                  className="w-full px-4 py-3 bg-gray-100 rounded-lg text-gray-800 font-medium text-center"
                 />
               </div>
               <div>
@@ -81,7 +80,7 @@ export default function AdoptionDetailModal({ isOpen, onClose, dog }) {
                   type="text"
                   value={dog.gender}
                   readOnly
-                  className="w-full px-4 py-2 bg-gray-100 rounded-lg text-gray-800 text-center"
+                  className="w-full px-4 py-3 bg-gray-100 rounded-lg text-gray-800 font-medium text-center"
                 />
               </div>
             </div>
@@ -96,7 +95,7 @@ export default function AdoptionDetailModal({ isOpen, onClose, dog }) {
                   type="text"
                   value={dog.weight}
                   readOnly
-                  className="w-full px-4 py-2 bg-gray-100 rounded-lg text-gray-800"
+                  className="w-full px-4 py-3 bg-gray-100 rounded-lg text-gray-800 font-medium"
                 />
               </div>
               <div className="col-span-2">
@@ -107,7 +106,7 @@ export default function AdoptionDetailModal({ isOpen, onClose, dog }) {
                   type="text"
                   value={dog.region}
                   readOnly
-                  className="w-full px-4 py-2 bg-gray-100 rounded-lg text-gray-800"
+                  className="w-full px-4 py-3 bg-gray-100 rounded-lg text-gray-800 font-medium"
                 />
               </div>
             </div>
@@ -120,13 +119,13 @@ export default function AdoptionDetailModal({ isOpen, onClose, dog }) {
               <textarea
                 value={dog.description || '건강하고 활발한 성격의 강아지입니다. 사람을 좋아하고 다른 동물들과도 잘 어울립니다.'}
                 readOnly
-                className="w-full px-4 py-3 bg-gray-100 rounded-lg text-gray-800 resize-none h-32"
+                className="w-full px-4 py-3 bg-gray-100 rounded-lg text-gray-800 font-medium resize-none h-32"
               />
             </div>
           </div>
 
           {/* Buttons */}
-          <div className="grid grid-cols-2 gap-4 mt-6">
+          <div className="grid grid-cols-3 gap-4 mt-6">
             <button
               onClick={onClose}
               className="py-3 bg-gray-300 text-gray-700 rounded-full text-base font-bold hover:bg-gray-400 transition-colors"
@@ -134,7 +133,12 @@ export default function AdoptionDetailModal({ isOpen, onClose, dog }) {
               닫기
             </button>
             <button
-              className="py-3 bg-yellow-400 text-gray-800 rounded-full text-base font-bold hover:bg-yellow-500 transition-colors"
+              className="py-3 bg-gray-200 text-gray-700 rounded-full text-base font-bold hover:bg-gray-300 transition-colors"
+            >
+              분양자와 채팅하기
+            </button>
+            <button
+              className="py-3 bg-gray-200 text-gray-700 rounded-full text-base font-bold hover:bg-gray-300 transition-colors"
             >
               분양 신청하기
             </button>
